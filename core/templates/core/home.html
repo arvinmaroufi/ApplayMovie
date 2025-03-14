@@ -1,0 +1,1412 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from applay.cfarhad.ir/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Dec 2024 04:03:07 GMT -->
+<head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- START: Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+    <!-- END: Favicon -->
+
+    <!-- START: Swiper css -->
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+    <!-- END: Swiper css -->
+
+    <!-- START: Fontawesome -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <!-- START: Fontawesome -->
+
+    <!-- START: Style css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-extended.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/components.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/master.css' %}" />
+    <!-- END: Style css -->
+
+    <!-- START: Dark Theme -->
+    <link rel="stylesheet" href="{% static 'css/dark-theme/dark-layout.css' %}" />
+
+    <!-- END: Dark Theme -->
+
+    <title>Applay - قالب فیلم و سریال</title>
+  </head>
+
+  <body class="">
+    <div id="preload">
+      <div class="hm-spinner"></div>
+    </div>
+
+    <div id="content">
+      <!-- START: Main menu -->
+      <div class="w-100" id="backMain">
+        <div class="container-fluid container-lg">
+          <div class="navbar navbar-expand-lg px-0">
+            <a href="index-2.html" class="navbar-brand" id="logo">
+              <img src="{% static 'img/logo.png' %}" alt="" />
+            </a>
+            <button
+              class="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#navbar-nav"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-nav">
+              <ul class="navbar-nav">
+                <li class="nav-item mx-2 my-1 mx-0">
+                  <a href="index-2.html" class="nav-item text-dark">خانه</a>
+                </li>
+                <li class="nav-item mx-2 my-1">
+                  <a href="movies.html" class="nav-item text-dark">فیلم</a>
+                </li>
+                <li class="nav-item mx-2 my-1">
+                  <a href="series.html" class="nav-item text-dark">سریال</a>
+                </li>
+                <li class="nav-item mx-2 my-1">
+                  <a href="contact.html" class="nav-item text-dark">تماس با ما</a>
+                </li>
+
+                <li class="nav-item mx-2 my-1 dropdown">
+                  <a
+                    class="text-dark dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    دیگر
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="login.html">ورود</a></li>
+                    <li>
+                      <a class="dropdown-item" href="signup.html">ثبت نام</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="fpassword.html"
+                        >فراموشی رمز</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="advanced_search.html"
+                        >جستجوی پیشرفته</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="mainBlog.html">وبلاگ</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="actors.html">بازیگران</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="category.html"
+                        >دسته بندی ها</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="ml-auto w-25">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="کلمه مورد نظر + اینتر"
+                    id="searchBox"
+                  />
+                  <div class="input-group-append">
+                    <a href="#" class="btn btn-primary">
+                      <i class="far fa-search"></i>
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END: Main menu -->
+
+      <!-- START: Submenu -->
+      <div
+        class="w-100 bg-transparent border-bottom border-top d-none d-md-block" id="navbar-children" >
+      <div class="container-fluid container-lg px-0">
+        <ul class="nav p-1">
+          <li class="nav-item mx-1 font-small-3">
+            <a href="#" class="text-dark"> دانلود سریال The Flash </a>
+          </li>
+          <li class="nav-item mx-1 font-small-3">
+            <a href="#" class="text-dark"> دانلود سریال Deadpool </a>
+          </li>
+          <li class="nav-item mx-1 font-small-3">
+            <a href="#" class="text-dark"> دانلود سریال اکشن </a>
+          </li>
+          <li class="nav-item mx-1 font-small-3">
+            <a href="#" class="text-dark"> دانلود سریال Peaky blinders </a>
+          </li>
+        </ul>
+      </div>
+      </div>
+      <!-- END: Submenu -->
+
+      <!-- START: Random movie -->
+      <div class="container container-lg mt-1" id="random-movie">
+        <div class="header mb-2">
+          <h4 class="text-bold-700 title">فیلم های پیشنهادی</h4>
+        </div>
+        <div>
+          <div class="swiper-container swiper-container1 swip">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/1.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم After We Collided</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/2.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم The Scientist</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/3.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم Joker</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/4.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم The old guard</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/5.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم The good doctor</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/6.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم santana</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/7.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم artemis fowl</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/8.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم American Pie Presents: Girls Rules</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/Random%20slide/9.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم Peninsula</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img
+                  class="card-img-top"
+                  src="{% static 'img/Random%20slide/10.jpg' %}"
+                  alt=""
+                />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="movie.html" class="card-link">
+                      <h5>فیلم Before the Fire</h5>
+                    </a>
+                    <a href="movie.html" class="btn btn-primary btn-sm">مشاهده</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END: Random movie -->
+
+      <!-- START: Main -->
+      <div class="container container-lg">
+        <div class="row">
+          <div class="col-12 mb-2">
+            <h4 class="title font-weight-bolder">جدیدترین ها</h4>
+          </div>
+
+          <!-- START: Post -->
+          <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12" id="main-post">
+            <!-- START: Movie and series box -->
+            <div class="card">
+              <div class="card-header">
+                <h5>فیلم The 100</h5>
+                <div class="d-md-flex d-sm-flex d-none">
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-th-large"></i>
+                    اکشن ، تاریخی
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                    2014
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-closed-captioning"></i>
+                    <span>زیرنویس</span>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                    <img
+                      class="w-100 h-100 rounded"
+                      src="{% static 'img/Main%20post/the%20100/100.jpg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column"
+                  >
+                    <div class="card-detail main">
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>امتیاز : </span>
+                        <span> 7.6/10 </span>
+                      </a>
+
+                      <a href="#">
+                        <span>زبان : </span>
+                        <span> انگلیسی </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کشور : </span>
+                        <span> آمریکا </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کارگردان : </span>
+                        <span> Jason Rothenberg </span>
+                      </a>
+                      <a href="#">
+                        <span>کیفیت : </span>
+                        <span> 720 </span>
+                      </a>
+                      <a href="#">
+                        <span>زمان : </span>
+                        <span> 120 دقیقه </span>
+                      </a>
+                    </div>
+                    <div class="card-about">
+                      <span href="#">
+                        <h6>خلاصه داستان :</h6>
+                      </span>
+                      <h6>
+                        داستان سریال در دنیای آینده جریان دارد که بر اثر
+                        انفجارات هسته ای دیگر زندگی بر روی زمین میسر نیست و مردم
+                        در ایستگاه های معلق در فضا زندگی می کنند و چند نسل جدید
+                        در انجا به دنیا امده است. اما انها با کمبود جا و تغذییه
+                        برای مردم رو برو هستند پس تصمیم می گیرند ...
+                      </h6>
+                    </div>
+                    <div class="card-footer">
+                      <div>
+                        <a href="#" class="text-dark">
+                          <i class="fas fa-clock"></i>
+                          <h6>
+                            انتشار در تاریخ : 4خرداد 1399
+                          </h6>
+                        </a>
+                      </div>
+                      <a href="movie.html" class="btn btn-primary">دانلود</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Movie and series box -->
+            <!-- START: Movie and series box -->
+            <div class="card">
+              <div class="card-header">
+                <h5>سریال Peaky Blinders</h5>
+                <div class="d-md-flex d-sm-flex d-none">
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-th-large"></i>
+                    <span>درام ، جنایی</span>
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>2013</span>
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-closed-captioning"></i>
+                    <span>زیرنویس</span>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                    <img
+                      class="w-100 h-100 rounded"
+                      src="{% static 'img/Main%20post/peaky%20blinders/1.jpg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column"
+                  >
+                    <div class="card-detail main">
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>امتیاز : </span>
+                        <span> 8.8/10 </span>
+                      </a>
+
+                      <a href="#">
+                        <span>زبان : </span>
+                        <span> انگلیسی </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کشور : </span>
+                        <span> آمریکا </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کارگردان : </span>
+                        <span> Steven Knight </span>
+                      </a>
+                      <a href="#">
+                        <span>کیفیت : </span>
+                        <span> 720 , 1080 </span>
+                      </a>
+                      <a href="#">
+                        <span>زمان : </span>
+                        <span> 60 دقیقه </span>
+                      </a>
+                    </div>
+                    <div class="card-about">
+                      <span href="#">
+                        <h6>خلاصه داستان :</h6>
+                      </span>
+                      <h6>
+                        در این سریال بازیگران مطرحی همچون کیلین مورفی و تام
+                        هاردی به ایفای نقش می‌پردازند. در خلاصه داستان این سریال
+                        جنایی آمده است ، در سال 1919 و بعد از جنگ جهانی اول ،
+                        پیکی بلایندرز یک گروه خانوادگی مستقر در بیرمنگام
+                        انگلستان است. داستان سریال بر روی گروه رومانیایی پیکی
+                        بلایندرز و بلندپروازی‌‌ها و رئیسشان ، تامی شلبی متمرکز
+                        است و ...
+                      </h6>
+                    </div>
+                    <div class="card-footer">
+                      <div>
+                        <a class="text-dark" href="#">
+                          <i class="fas fa-clock"></i>
+                          <h6>انتشار در تاریخ : 4خرداد 1399</h6>
+                        </a>
+                      </div>
+                      <a href="serial.html" class="btn btn-primary">دانلود</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Movie and series box -->
+            <!-- START: Movie and series box -->
+            <div class="card">
+              <div class="card-header">
+                <h5>سریال American Horror Story</h5>
+                <div class="d-md-flex d-sm-flex d-none">
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-th-large"></i>
+                    درام ، فانتزی
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>2011</span>
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-closed-captioning"></i>
+                    <span>زیرنویس</span>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                    <img
+                      class="w-100 h-100 rounded"
+                      src="{% static 'img/Main%20post/ahs/ahs.jpg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column"
+                  >
+                    <div class="card-detail main">
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>امتیاز : </span>
+                        <span> 8/10 </span>
+                      </a>
+
+                      <a href="#">
+                        <span>زبان : </span>
+                        <span> انگلیسی </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کشور : </span>
+                        <span> آمریکا </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کارگردان : </span>
+                        <span> Ryan Murphy </span>
+                      </a>
+                      <a href="#">
+                        <span>کیفیت : </span>
+                        <span> 720 </span>
+                      </a>
+                      <a href="#">
+                        <span>زمان : </span>
+                        <span> 43 دقیقه </span>
+                      </a>
+                    </div>
+                    <div class="card-about">
+                      <span href="#">
+                        <h6>خلاصه داستان :</h6>
+                      </span>
+                      <h6>
+                        داستان ترسناک آمریکایی (به انگلیسی: American Horror
+                        Story) یک سریال تلویزیونی در ژانر وحشت است که توسط رایان
+                        مورفی و براد فالچاک خلق و تهیه‌کنندگی شده‌است. هر فصل از
+                        این سریال داستانی مجزا دارد که در پایان همان فصل داستان
+                        پایان می‌یابد اما اکثر بازیگران اصلی سریال، در تمام
+                        فصل‌ها با نقش‌های متفاوت حضور دارند...
+                      </h6>
+                    </div>
+                    <div class="card-footer">
+                      <div>
+                        <a class="text-dark" href="#">
+                          <i class="fas fa-clock"></i>
+                          <h6>انتشار در تاریخ : 4خرداد 1399</h6>
+                        </a>
+                      </div>
+                      <a href="serial.html" class="btn btn-primary">دانلود</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Movie and series box -->
+            <!-- START: Movie and series box -->
+            <div class="card">
+              <div class="card-header">
+                <h5>فیلم Borat</h5>
+                <div class="d-md-flex d-sm-flex d-none">
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-th-large"></i>
+                    کمدی
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>2020</span>
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-closed-captioning"></i>
+                    <span>زیرنویس</span>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                    <img
+                      class="w-100 h-100 rounded"
+                      src="{% static 'img/Main%20post/borat/1.jpg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column"
+                  >
+                    <div class="card-detail main">
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>امتیاز : </span>
+                        <span> 8/10 </span>
+                      </a>
+
+                      <a href="#">
+                        <span>زبان : </span>
+                        <span> انگلیسی </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کشور : </span>
+                        <span> آمریکا </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کارگردان : </span>
+                        <span> Jason Woliner </span>
+                      </a>
+                      <a href="#">
+                        <span>کیفیت : </span>
+                        <span> 720 , 1080 , 4k </span>
+                      </a>
+                      <a href="#">
+                        <span>زمان : </span>
+                        <span> 93 دقیقه </span>
+                      </a>
+                    </div>
+                    <div class="card-about">
+                      <span href="#">
+                        <h6>خلاصه داستان :</h6>
+                      </span>
+                      <h6>
+                        این فیلم که دنباله‌ی فیلمی به همین نام محصول ۲۰۰۶ است ،
+                        درباره‌ی ماجراهای واقعی یک روزنامه‌نگار خیالی تلویزیون
+                        قزاقستان به‌نام بورات ساگدیف است که ...
+                      </h6>
+                    </div>
+                    <div class="card-footer">
+                      <div>
+                        <a class="text-dark" href="#">
+                          <i class="fas fa-clock"></i>
+                          <h6>انتشار در تاریخ : 4خرداد 1399</h6>
+                        </a>
+                      </div>
+                      <a href="movie.html" class="btn btn-primary">دانلود</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Movie and series box -->
+            <!-- START: Movie and series box -->
+            <div class="card">
+              <div class="card-header">
+                <h5>فیلم The ABCs of Death</h5>
+                <div class="d-md-flex d-sm-flex d-none">
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-th-large"></i>
+                    ترسناک
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>2013</span>
+                  </a>
+                  <a href="#" class="mx-1 text-dark">
+                    <i class="fas fa-closed-captioning"></i>
+                    <span>زیرنویس</span>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                    <img
+                      class="w-100 h-100 rounded"
+                      src="{% static 'img/Main%20post/the%20abc%27s%20of%20death/1.jpg' %}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column"
+                  >
+                    <div class="card-detail main">
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>امتیاز : </span>
+                        <span> 6/10 </span>
+                      </a>
+
+                      <a href="#">
+                        <span>زبان : </span>
+                        <span> انگلیسی </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کشور : </span>
+                        <span> آمریکا </span>
+                      </a>
+                      <a href="#" class="d-md-flex d-sm-none d-none">
+                        <span>کارگردان : </span>
+                        <span> Adam Wingard </span>
+                      </a>
+                      <a href="#">
+                        <span>کیفیت : </span>
+                        <span> 720 , 1080 </span>
+                      </a>
+                      <a href="#">
+                        <span>زمان : </span>
+                        <span> 123 دقیقه </span>
+                      </a>
+                    </div>
+                    <div class="card-about">
+                      <span href="#">
+                        <h6>خلاصه داستان :</h6>
+                      </span>
+                      <h6>
+                        یک فیلم گلچین بلند پروازانه شامل بخشهایی به کارگردانی
+                        بیش از دوازده استعداد برجسته جهان در فیلم ژانر معاصر.
+                        این فیلم با الهام از کتابهای آموزشی ABC کودکان ، شامل 26
+                        فصل جداگانه است که هرکدام از آنها کارگردان دیگری است که
+                        حروف الفبا را به خود اختصاص داده است. سپس به کارگردانان
+                        در انتخاب کلمه ای برای خلق داستانی شامل مرگ ، سلطنت آزاد
+                        داده شد...
+                      </h6>
+                    </div>
+                    <div class="card-footer">
+                      <div>
+                        <a class="text-dark" href="#">
+                          <i class="fas fa-clock"></i>
+                          <h6>انتشار در تاریخ : 4خرداد 1399</h6>
+                        </a>
+                      </div>
+                      <a href="movie.html" class="btn btn-primary">دانلود</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Movie and series box -->
+
+            <!-- START: Pagination -->
+            <div class="my-5">
+              <nav>
+                <ul
+                  class="pagination pagination-borderless justify-content-center mt-2"
+                >
+                  <li class="page-item previous">
+                    <a class="page-link" href="#">
+                      <i class="far fa-angle-right"></i>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <li class="page-item"><a class="page-link" href="#">6</a></li>
+                  <li class="page-item"><a class="page-link" href="#">7</a></li>
+                  <li class="page-item next">
+                    <a class="page-link" href="#">
+                      <i class="far fa-angle-left"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- END: Pagination -->
+            <!-- END: Post -->
+          </div>
+
+          <!-- START: Sidebar -->
+          <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12" id="sidebar">
+            <div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="title">ژانر فیلم ها</h5>
+                      <div class="row">
+                        <div class="col-6">
+                          <a href="#">
+                            <div class="category">
+                              <p>اکشن</p>
+                              <span>5</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>تاریخی</p>
+                              <span>0</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>خانوادگی</p>
+                              <span>7</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>زندگی نامه</p>
+                              <span>4</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>فانتزی</p>
+                              <span>20</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ماجراجویی</p>
+                              <span>5</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>معمایی</p>
+                              <span>6</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ورزشی</p>
+                              <span>2</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="col-6">
+                          <a href="#">
+                            <div class="category">
+                              <p>انیمیشن</p>
+                              <span>15</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ترسناک</p>
+                              <span>8</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>درام</p>
+                              <span>5</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>علمی تخیلی</p>
+                              <span>2</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>کمدی</p>
+                              <span>6</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>مستند</p>
+                              <span>8</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>موزیکال</p>
+                              <span>12</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>وسترن</p>
+                              <span>9</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="title">ژانر سریال ها</h5>
+                      <div class="row">
+                        <div class="col-6">
+                          <a href="#">
+                            <div class="category">
+                              <p>تاریخی</p>
+                              <span>3</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>اکشن</p>
+                              <span>5</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>خانوادگی</p>
+                              <span>4</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>درام</p>
+                              <span>2</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>فانتزی</p>
+                              <span>7</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ماجراجویی</p>
+                              <span>20</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>معمایی</p>
+                              <span>3</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ترسناک</p>
+                              <span>8</span>
+                            </div>
+                          </a>
+                        </div>
+                        <div class="col-6">
+                          <a href="#">
+                            <div class="category">
+                              <p>انیمیشن</p>
+                              <span>7</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>ورزشی</p>
+                              <span>11</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>زندگی نامه</p>
+                              <span>16</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>علمی تخیلی</p>
+                              <span>14</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>کمدی</p>
+                              <span>4</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>مستند</p>
+                              <span>0</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>موزیکال</p>
+                              <span>1</span>
+                            </div>
+                          </a>
+                          <a href="#">
+                            <div class="category">
+                              <p>وسترن</p>
+                              <span>4</span>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="title">بروز شده ها</h5>
+                      <div class="col-12">
+                        <a href="#">
+                          <div class="update">
+                            <img
+                              class="update-img"
+                              src="{% static 'img/series/flash.jpg' %}"
+                              alt=""
+                            />
+                            <div class="update-body">
+                              <h6>قسمت 1 از فصل 1</h6>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#">
+                          <div class="update">
+                            <img
+                              class="update-img"
+                              src="{% static 'img/series/arrow.jpg' %}"
+                              alt=""
+                            />
+                            <div class="update-body">
+                              <h6>قسمت 2 از فصل 3</h6>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#">
+                          <div class="update">
+                            <img
+                              class="update-img"
+                              src="{% static 'img/series/breaking_bad.jpg' %}"
+                              alt=""
+                            />
+                            <div class="update-body">
+                              <h6>قسمت 5 از فصل 3</h6>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#">
+                          <div class="update">
+                            <img
+                              class="update-img"
+                              src="{% static 'img/series/money_heist.jpg' %}"
+                              alt=""
+                            />
+                            <div class="update-body">
+                              <h6>قسمت 3 از فصل 2</h6>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                  <div
+                    class="card shadow-none d-flex align-items-center justify-content-center py-4 bg-primary"
+                  >
+                    <img class="" src="{% static 'img/svg/box.svg' %}" alt="" height="100" />
+                    <h6 class="text-white text-center">
+                      محل تبلیغ شما اینجاست !
+                    </h6>
+                  </div>
+                  <div
+                    class="card shadow-none align-items-center justify-content-center py-4 bg-primary d-lg-none d-md-flex"
+                  >
+                    <img class="" src="{% static 'img/svg/box.svg' %}" alt="" height="100" />
+                    <h6 class="text-white text-center">
+                      محل تبلیغ شما اینجاست !
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END: Sidebar -->
+
+          <!-- START:Theme option -->
+          <div class="shadow p-2 customizer" id="theme-option">
+            <div class="change-setting shadow cursor-pointer">
+              <a href="#" class="font-medium-4">
+                <i class="fas fa-cog"></i>
+              </a>
+            </div>
+            <header class="d-flex align-items-center justify-content-between">
+              <h4 class="font-weight-normal">تنظیمات قالب</h4>
+              <a class="text-dark font-medium-4 close" href="#">
+                <i class="far fa-times"></i>
+              </a>
+            </header>
+            <hr />
+            <h5 class="mt-2">طرح قالب</h5>
+            <div class="d-flex align-items-center">
+              <div class="mr-1">
+                <fieldset>
+                  <div class="radio">
+                    <input
+                      type="radio"
+                      name="layoutOptions"
+                      value="false"
+                      id="radio-light"
+                      class="layout-name"
+                      theme="light"
+                      checked=""
+                    />
+                    <label for="radio-light">روشن</label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="mx-1">
+                <fieldset>
+                  <div class="radio">
+                    <input
+                      type="radio"
+                      name="layoutOptions"
+                      value="false"
+                      id="radio-dark"
+                      class="layout-name"
+                      theme="dark"
+                    />
+                    <label for="radio-dark">تیره</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mt-2">سایه کارت</h5>
+              <div class="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="card-shadow"
+                  checked
+                />
+                <label class="custom-control-label" for="card-shadow"></label>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mt-2">اسکرول به بالا</h5>
+              <div class="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="scroll-top"
+                  name="scrollTopShow"
+                  checked
+                />
+                <label class="custom-control-label" for="scroll-top"></label>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mt-2">تمام صفحه</h5>
+              <div class="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="fullscreen-option"
+                  name="fullscrenn"
+                />
+                <label class="custom-control-label" for="fullscreen-option"></label>
+              </div>
+            </div>
+            <hr />
+            <h5 class="mt-2">نوع فوتر</h5>
+            <div class="d-flex align-items-center">
+              <div class="mr-1">
+                <fieldset>
+                  <div class="radio">
+                    <input
+                      type="radio"
+                      name="footer-option"
+                      value="false"
+                      class="footer-option"
+                      footer="hidden"
+                      id="hidden-footer"
+                    />
+                    <label for="hidden-footer">مخفی</label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="mx-1">
+                <fieldset>
+                  <div class="radio">
+                    <input
+                      type="radio"
+                      name="footer-option"
+                      value="true"
+                      class="footer-option"
+                      footer="static"
+                      id="static-footer"
+                      checked
+                    />
+                    <label for="static-footer">ایستا</label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="mx-1">
+                <fieldset>
+                  <div class="radio">
+                    <input
+                      type="radio"
+                      name="footer-option"
+                      value="false"
+                      class="footer-option"
+                      id="sticky-footer"
+                      footer="sticky"
+                    />
+                    <label for="sticky-footer">چسبان</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <!-- END:Theme option -->
+        </div>
+      </div>
+
+      <!-- START: Top actor -->
+      <div class="container container-lg" id="random-movie">
+        <h4 class="text-bold-700 title">بهترین بازیگران</h4>
+        <div class="mt-2">
+          <div class="swiper-container swiper-container1 swip">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/1.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Jason Statham</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/2.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Scarlett Johansson</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/3.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Dwayne Johnson</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/4.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Tom Hardy</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/5.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Keanu Reeves</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide card hover">
+                <img class="card-img-top" src="{% static 'img/actor/6.jpg' %}" alt="" />
+                <div class="card-body">
+                  <div class="card-content">
+                    <a href="actors_page.html" class="card-link">
+                      <h5>Alexandra Daddario</h5>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END: Top actor -->
+
+      <!-- START: Footer -->
+      <div class="w-100 bg-white" id="social_media">
+        <div class="container container-lg">
+          <div class="d-flex align-items-center justify-content-between social_main">
+            <h6 class="d-lg-block d-sm-block d-none text-dark font-weight-bolder p-0 m-0">ما را در شبکه های اجتماعی دنبال کنید</h6>
+            <div class="d-flex align-items-center">
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-reddit"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-imdb"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-google-plus-g"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-twitch"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-telegram"></i>
+              </a>
+              <a class="font-medium-4 mx-1 text-dark" href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white" id="footer">
+        <div class="container container-lg">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+              <img width="200" src="{% static 'img/logo.png' %}" alt="">
+              <div>
+                <span class=" font-small-3">قالب فیلم و سریال</span>
+              </div>
+              <div>
+                <div class="my-1">
+                  <i class="fas fa-map-marker-alt text-light"></i>
+                  <span class="ml-1 text-light">ایران - فارس - شیراز - خیابان ملاصدرا</span>
+                </div>
+                <div class="my-1">
+                  <i class="fas fa-phone-alt text-light"></i>
+                  <span class="text-light ml-1">شماره تماس : </span>
+                  <span class="text-light">021-123456</span>
+                </div>
+                <div class="my-1">
+                  <i class="fas fa-at text-light"></i>
+                  <span class="text-light ml-1">info@applay.com</span>
+                </div>
+                <div class="my-1 d-flex align-items-center">
+                  <a class="btn btn-primary" href="#">ورود</a>
+                  <a class="btn btn-primary ml-1" href="#">ثبت نام</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12">
+                <h3 class="font-weight-bolder text-dark">فیلم ها</h3>
+                <ul class="list-unstyled">
+                  <li class="mb-1"><a class="text-light" href="#">فیلم Joker</a></li>
+                  <li class="mb-1"><a class="text-light" href="#">فیلم After we collided</a></li>
+                  <li class="mb-1"><a class="text-light" href="#">فیلم The old guard</a></li>
+                  <li class="mb-1"><a class="text-light" href="#">فیلم Borat 2</a></li>
+                  <li class="mb-1"><a class="text-light" href="#">فیلم Peninsula</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12">
+              <h3 class="font-weight-bolder text-dark">سریال ها</h3>
+              <ul class="list-unstyled">
+                <li class="mb-1"><a class="text-light" href="#">سریال Breaking Bad</a></li>
+                <li class="mb-1"><a class="text-light" href="#">سریال The Flash</a></li>
+                <li class="mb-1"><a class="text-light" href="#">سریال Money Heist</a></li>
+                <li class="mb-1"><a class="text-light" href="#">سریال Peaky Blinders</a></li>
+                <li class="mb-1"><a class="text-light" href="#">سریال Dark</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mt-1">
+              <h6 class="text-light">در خبرنامه ما عضو شوید و از مزایا بهره مند شویم</h6>
+              <form class="ml-auto w-100">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="آدرس ایمیل را وارد کنید"
+                    id="searchBox"
+                  />
+                  <div class="input-group-append">
+                    <a href="#" class="btn btn-primary">
+                      عضویت
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3" id="sub_footer">
+          <div class="p-1 d-flex align-items-center">
+              <p class="p-0 m-0 text-center w-100">&copy; 1399 تمام حقوق این سایت مطلق به خریدار میباشد</p>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid container-lg">
+        <div class="main_gotop">
+          <a class="goTop" href="JavaScript:void(0)">
+            <i class="fas fa-angle-up"></i>
+          </a>
+        </div>
+      </div>
+      <!-- END: Footer -->
+    </div>
+
+    <!-- START: Bootstrap -->
+    <script src="{% static 'js/scripts/popper.min_2.js' %}"></script>
+    <script src="{% static 'js/scripts/bootstrap.min.js' %}"></script>
+    <!-- END: Bootstrap -->
+
+    <!-- START: Swiper JS -->
+    <script src="{% static 'js/scripts/swiper-bundle.min.js' %}"></script>
+    <!-- END: Swiper JS -->
+
+    <!-- START: Swiper options -->
+    <script src="{% static 'js/swiperOptions.js' %}"></script>
+    <!-- END: Swiper options -->
+
+    <!-- START: Sweetalert 2 -->
+    <script src="{% static 'js/scripts/sweetalert.min.js' %}"></script>
+    <!-- START: Sweetalert 2 -->
+
+    <!-- START: Sweetalert 2 options -->
+    <script src="{% static 'js/sweetalertOptions.js' %}"></script>
+    <!-- END: Sweetalert 2 options -->
+
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+
+<!-- Mirrored from applay.cfarhad.ir/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Dec 2024 04:03:23 GMT -->
+</html>
