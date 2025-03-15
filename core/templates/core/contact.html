@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- START: Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}"/>
+    <!-- END: Favicon -->
+
+    <!-- START: Fontawesome -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}"/>
+    <!-- START: Fontawesome -->
+
+    <!-- START: Style css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-extended.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/components.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/master.css' %}"/>
+    <!-- END: Style css -->
+
+    <!-- START: Dark Theme -->
+    <link rel="stylesheet" href="{% static 'css/dark-theme/dark-layout.css' %}"/>
+    <!-- END: Dark Theme -->
+
+    <title>تماس با ما</title>
+</head>
+
+<body>
+    <div id="preload">
+        <div class="hm-spinner"></div>
+    </div>
+
+    <div id="content">
+        <!-- START: Main Content -->
+        <div id="login">
+            <div id="main" class="col-xl-8 col-11">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-12 px-0">
+                                    <div class="card h-100">
+                                        <div class="card-header d-flex justify-content-center">
+                                            <h4 class="font-weight-bolder mb-5">تماس با ما</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <form class="d-flex flex-column" id="login-form" method="post">
+                                                    {% csrf_token %}
+                                                    <div class="form-label-group form-group position-relative has-icon-left">
+                                                        <input type="text" class="form-control" name="full_name" id="full_name" placeholder="نام خود را وارد کنید"/>
+                                                        <div class="form-control-position">
+                                                            <i class="far fa-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-label-group form-group position-relative has-icon-left">
+                                                        <input type="text" class="form-control" name="email" id="email" placeholder="ایمیل خود را وارد کنید"/>
+                                                        <div class="form-control-position">
+                                                            <i class="far fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-label-group form-group position-relative has-icon-left">
+                                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="موضوع پیام خود را وارد کنید"/>
+                                                        <div class="form-control-position">
+                                                            <i class="far fa-tag"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="message" id="message" rows="5" placeholder="پیام خود را بنویسید" style="resize: none"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary glow w-100">ارسال</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-md-block d-none text-center align-self-center left-side">
+                                    <a href="index-2.html">
+                                        <img class="card-img-top rounded" src="{% static 'img/contact.svg' %}" alt=""
+                                             data-tilt data-tilt-scale="1.1"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END: Main Content -->
+    </div>
+
+<!-- START: Bootstrap -->
+<script src="{% static 'js/scripts/popper.min_2.js' %}"></script>
+<script src="{% static 'js/scripts/bootstrap.min.js' %}"></script>
+<!-- END: Bootstrap -->
+
+<!-- START: Js titl -->
+<script src="{% static 'js/scripts/vanilla-tilt.js' %}"></script>
+<!-- END: JS titl -->
+
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>
