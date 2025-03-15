@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from applay.cfarhad.ir/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Dec 2024 04:03:07 GMT -->
 <head>
     <meta charset="UTF-8"/>
 
@@ -72,6 +71,14 @@
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a href="#blog" class="nav-item text-dark">وبلاگ</a>
+                        </li>
+                        <li class="nav-item mx-2 my-1">
+                            {% if request.user.is_authenticated %}
+                                <span class="nav-item text-dark">{{ request.user.username }}</span> |
+                                <a href="{% url 'accounts:logout' %}" class="nav-item text-dark">خروج</a>
+                            {% else %}
+                                <a href="{% url 'accounts:login' %}" class="nav-item text-dark">ثبت نام / ورود</a>
+                            {% endif %}
                         </li>
                     </ul>
                     <form class="ml-auto w-25">
@@ -253,5 +260,4 @@
 <script src="{% static 'js/app.js' %}"></script>
 </body>
 
-<!-- Mirrored from applay.cfarhad.ir/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Dec 2024 04:03:23 GMT -->
 </html>

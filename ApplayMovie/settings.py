@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'jalali_date',
     # my apps
     'core',
+    'accounts',
 ]
 
 MIDDLEWARE = [

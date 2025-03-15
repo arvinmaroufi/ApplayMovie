@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- START: Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}"/>
+    <!-- END: Favicon -->
+
+    <!-- START: Fontawesome -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}"/>
+    <!-- START: Fontawesome -->
+
+    <!-- START: Style css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-extended.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/components.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/master.css' %}"/>
+    <!-- END: Style css -->
+
+    <!-- START: Dark Theme -->
+    <link rel="stylesheet" href="{% static 'css/dark-theme/dark-layout.css' %}"/>
+    <!-- END: Dark Theme -->
+
+    <title>ثبت نام</title>
+</head>
+
+<body>
+<div id="preload">
+    <div class="hm-spinner"></div>
+</div>
+
+<div id="content">
+    <!-- START: Main Content -->
+    <div id="login">
+        <div id="main" class="col-xl-8 col-11">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-12 px-0">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-center">
+                                        <h4 class="font-weight-bolder mb-2">خوش آمدید</h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="d-flex flex-column" method="post" id="login-form">
+                                                {% csrf_token %}
+                                                {% for error_username in form.username.errors %}
+                                                    {% if error_username %}
+                                                        <p class="alert alert-danger">{{ error_username }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <div class="form-label-group form-group position-relative has-icon-left">
+                                                    <input type="text" name="username" class="form-control" id="iconLabelLeft" placeholder="نام کاربری خود را وارد کنید"/>
+                                                    <div class="form-control-position">
+                                                        <i class="far fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                {% for error_email in form.email.errors %}
+                                                    {% if error_email %}
+                                                        <p class="alert alert-danger">{{ error_email }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <div class="form-label-group form-group position-relative has-icon-left">
+                                                    <input type="text" name="email" class="form-control" id="iconLabelLeft" placeholder="ایمیل خود را وارد کنید"/>
+                                                    <div class="form-control-position">
+                                                        <i class="far fa-envelope"></i>
+                                                    </div>
+                                                </div>
+                                                {% for error_password in form.password.errors %}
+                                                    {% if error_password %}
+                                                        <p class="alert alert-danger">{{ error_password }}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <div class="form-label-group form-group position-relative has-icon-left">
+                                                    <input type="password" name="password" class="form-control" id="iconLabelLeft" placeholder="گذرواژه خود را وارد کنید"/>
+                                                    <div class="form-control-position">
+                                                        <i class="far fa-key"></i>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-success glow w-100">
+                                                    ثبت نام
+                                                </button>
+                                                <hr/>
+                                                <div class="text-center">
+                                                    <small class="mr-25">حساب دارید؟</small><a
+                                                        href="{% url 'accounts:login' %}"><small
+                                                        class="text-primary">ورود</small></a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-md-block d-none text-center align-self-center left-side">
+                                <a href="index-2.html">
+                                    <img class="card-img-top rounded" src="{% static 'img/signup.svg' %}" alt="" data-tilt
+                                         data-tilt-scale="1.1"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Main Content -->
+</div>
+
+<!-- START: Bootstrap -->
+<script src="{% static 'js/scripts/popper.min_2.js' %}"></script>
+<script src="{% static 'js/scripts/bootstrap.min.js' %}"></script>
+<!-- END: Bootstrap -->
+
+<!-- START: Js titl -->
+<script src="{% static 'js/scripts/vanilla-tilt.js' %}"></script>
+<!-- END: JS titl -->
+
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+
+<!-- Mirrored from applay.cfarhad.ir/signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Dec 2024 04:03:49 GMT -->
+</html>
