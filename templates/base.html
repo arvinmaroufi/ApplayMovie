@@ -48,11 +48,7 @@
                 <a href="{% url 'core:home' %}" class="navbar-brand" id="logo">
                     <img src="{% static 'img/logo.png' %}" alt=""/>
                 </a>
-                <button
-                        class="navbar-toggler"
-                        data-toggle="collapse"
-                        data-target="#navbar-nav"
-                >
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar-nav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-nav">
@@ -130,30 +126,19 @@
     <div class="w-100 bg-white" id="social_media">
         <div class="container container-lg">
             <div class="d-flex align-items-center justify-content-between social_main">
-                <h6 class="d-lg-block d-sm-block d-none text-dark font-weight-bolder p-0 m-0">ما را در شبکه های اجتماعی
-                    دنبال کنید</h6>
+                <h6 class="d-lg-block d-sm-block d-none text-dark font-weight-bolder p-0 m-0">ما را در شبکه های اجتماعی دنبال کنید</h6>
                 <div class="d-flex align-items-center">
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-reddit"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-imdb"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-google-plus-g"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-twitch"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a class="font-medium-4 mx-1 text-dark" href="#">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                    {% if site_settings.telegram_link %}
+                        <a class="font-medium-4 mx-1 text-dark" href="{{ site_settings.telegram_link }}">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    {% endif %}
+                    {% if site_settings.instagram_link %}
+                        <a class="font-medium-4 mx-1 text-dark" href="{{ site_settings.instagram_link }}">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -164,22 +149,25 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <img width="200" src="{% static 'img/logo.png' %}" alt="">
                     <div>
-                        <span class=" font-small-3">قالب فیلم و سریال</span>
-                    </div>
-                    <div>
-                        <div class="my-1">
-                            <i class="fas fa-map-marker-alt text-light"></i>
-                            <span class="ml-1 text-light">ایران - فارس - شیراز - خیابان ملاصدرا</span>
-                        </div>
-                        <div class="my-1">
-                            <i class="fas fa-phone-alt text-light"></i>
-                            <span class="text-light ml-1">شماره تماس : </span>
-                            <span class="text-light">021-123456</span>
-                        </div>
-                        <div class="my-1">
-                            <i class="fas fa-at text-light"></i>
-                            <span class="text-light ml-1">info@applay.com</span>
-                        </div>
+                        {% if site_settings.address %}
+                            <div class="my-1">
+                                <i class="fas fa-map-marker-alt text-light"></i>
+                                <span class="ml-1 text-light">{{ site_settings.address }}</span>
+                            </div>
+                        {% endif %}
+                        {% if site_settings.phone %}
+                            <div class="my-1">
+                                <i class="fas fa-phone-alt text-light"></i>
+                                <span class="text-light ml-1">شماره تماس : </span>
+                                <span class="text-light">{{ site_settings.phone }}</span>
+                            </div>
+                        {% endif %}
+                        {% if site_settings.email %}
+                            <div class="my-1">
+                                <i class="fas fa-at text-light"></i>
+                                <span class="text-light ml-1">{{ site_settings.email }}</span>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-12">
@@ -203,7 +191,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 mt-1">
-                    <h6 class="text-light">در خبرنامه ما عضو شوید و از مزایا بهره مند شویم</h6>
+                    <h6 class="text-light">در خبرنامه ما عضو شوید تا از محتوای جدید بهره مند شوید</h6>
                     <form class="ml-auto w-100" action="{% url 'core:newsletter' %}" method="post">
                         {% csrf_token %}
                         <div class="input-group">
@@ -218,7 +206,7 @@
         </div>
         <div class="mt-3" id="sub_footer">
             <div class="p-1 d-flex align-items-center">
-                <p class="p-0 m-0 text-center w-100">&copy; 1399 تمام حقوق این سایت مطلق به خریدار میباشد</p>
+                <p class="p-0 m-0 text-center w-100">&copy; {{ site_settings.copy_right }}</p>
             </div>
         </div>
     </div>

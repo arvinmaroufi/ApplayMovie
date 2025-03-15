@@ -4,6 +4,11 @@ from jalali_date import datetime2jalali, date2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
 
 
+@admin.register(models.SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ['email', 'copy_right', 'instagram_link', 'telegram_link']
+
+
 @admin.register(models.Newsletter)
 class NewsletterAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ['email', 'get_date_membership_jalali']

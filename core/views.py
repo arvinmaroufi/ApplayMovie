@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from .forms import NewsletterForm, ContactUsForm
+from .models import SiteSettings
 
 
 def home(request):
-    return render(request, 'core/home.html')
+    site_settings = SiteSettings.objects.first()
+
+    context = {
+        'site_settings': site_settings
+    }
+    return render(request, 'core/home.html', context)
 
 
 def newsletter(request):
