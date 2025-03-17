@@ -48,6 +48,7 @@ class Actor(models.Model):
     gender = models.CharField(choices=GENDER, max_length=10, default='man', verbose_name='جنسیت')
     date_birth = models.DateField(verbose_name='تاریخ تولد')
     place_birth = models.CharField(max_length=300, verbose_name='محل تولد')
+    views = models.IntegerField(default=0, verbose_name='بازدید ها')
     status = models.CharField(choices=STATUS, max_length=10, default='published', verbose_name='وضعیت')
 
     class Meta:
