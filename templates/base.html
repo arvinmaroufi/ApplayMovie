@@ -57,10 +57,10 @@
                             <a href="{% url 'core:home' %}" class="nav-item text-dark">خانه</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
-                            <a href="movies.html" class="nav-item text-dark">فیلم</a>
+                            <a href="{% url 'movie:movies_list' %}" class="nav-item text-dark">فیلم</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
-                            <a href="series.html" class="nav-item text-dark">سریال</a>
+                            <a href="{% url 'movie:series_list' %}" class="nav-item text-dark">سریال</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a href="{% url 'core:contact' %}" class="nav-item text-dark">تماس با ما</a>

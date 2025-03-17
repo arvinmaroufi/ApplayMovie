@@ -1,0 +1,1114 @@
+{% extends 'base.html' %}
+{% block title %}{{ series.title }}{% endblock %}
+{% load static %}
+
+{% block content %}
+    <!-- START: Main -->
+    <div class="container container-lg mt-4">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}">خانه</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'movie:series_list' %}">سریال ها</a></li>
+                        <li class="breadcrumb-item active">
+                            {{ series.title }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+            <!-- START: Post -->
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12" id="main-post">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-dark font-weight-bolder">{{ series.title }}</h5>
+                        <div class="d-md-flex d-sm-flex d-none">
+                            <a class="mx-1 text-dark">
+                                <i class="fas fa-th-large"></i>
+                            </a>
+                            {% for genre in series.genre.all %}
+                                <a href="{% url 'movie:genre_series' genre.slug %}" class="mx-1 text-dark">
+                                    {{ genre.title }}{% if not forloop.last %} - {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-12 col-12 card-cover">
+                                {% if series.thumbnail %}
+                                    <img class="w-100 h-100 rounded" src="{{ series.thumbnail.url }}"
+                                         alt="{{ series.title }}"/>
+                                {% else %}
+                                    <img class="w-100 h-100 rounded" src="{% static 'img/image_not_available.jpg' %}"
+                                         alt="{{ series.title }}"/>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column">
+                                <div class="card-detail post">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <a class="d-flex align-items-center">
+                                                <i class="far fa-star mr-1"></i>
+                                                <span class="text-dark">امتیاز : </span>
+                                                <span> {{ series.score }} </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            {% for lang in series.language.all %}
+                                                <a class="d-flex align-items-center">
+                                                    <i class="fas fa-headphones mr-1"></i>
+                                                    <span class="text-dark">زبان : </span>
+                                                    <span>{{ lang.name }}{% if not forloop.last %}، {% endif %}</span>
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <a class="d-flex align-items-center">
+                                                <i class="far fa-globe mr-1"></i>
+                                                <span class="text-dark">کشور : </span>
+                                                <span> {{ series.country }} </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <a class="d-flex align-items-center">
+                                                <i class="far fa-exclamation-triangle mr-1"></i>
+                                                <span class="text-dark">رنج سنی : </span>
+                                                <span> {{ series.age_range }} </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <a class="d-flex align-items-center">
+                                                <i class="far fa-clock mr-1"></i>
+                                                <span class="text-dark">زمان : </span>
+                                                <span> {{ series.duration }} دقیقه </span>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <a class="d-flex align-items-center">
+                                                <i class="far fa-user mr-1"></i>
+                                                <span class="text-dark">کارگردان : </span>
+                                                <span> {{ series.director }} </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-about">
+                                    <span href="#">
+                                        <h6>خلاصه داستان :</h6>
+                                    </span>
+                                    <h6>{{ series.description }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr/>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-12 mb-1">
+                                        <span>
+                                            <i class="far fa-clock"></i>
+                                            انتشار در تاریخ :
+                                        </span>
+                                        <span class="text-primary">{{ series.formatted_release_date }}</span>
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-12 mb-1">
+                                        <span>
+                                            <i class="far fa-comment-alt-lines"></i>
+                                            تعداد نظرات :
+                                        </span>
+                                        <span class="text-primary">3</span>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-12 mb-1">
+                                        <span>
+                                            <i class="far fa-eye"></i>
+                                            تعداد بازدید ها :
+                                        </span>
+                                        <span class="text-primary">{{ series.views }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title text-dark font-weight-bolder">تریلر</h5>
+                                <div>
+                                    <a href="#" class="mr-1 text-dark"
+                                    ><i class="far fa-arrow-alt-to-bottom"></i
+                                    ></a>
+                                    <a href="#" class="dropdown text-dark" data-toggle="dropdown">
+                                        <i class="far fa-ellipsis-h"></i>
+                                        <div class="dropdown-menu">
+                                            <li>
+                                                <a
+                                                        href="#embedModal"
+                                                        data-toggle="modal"
+                                                        class="dropdown-item"
+                                                >
+                                                    <i class="far fa-code"></i>
+                                                    <span class="ml-1">دریافت کد</span>
+                                                </a>
+                                                <a href="#" class="dropdown-item">
+                                                    <i class="far fa-flag"></i>
+                                                    <span class="ml-1">گزارش تخلف</span>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="modal fade modal-borderless" id="embedModal" tabindex="-1" data-backdrop="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                ویدئو در سایت شما
+                                            </h5>
+                                            <button type="button" class="close rounded-pill" data-dismiss="modal"
+                                                    aria-label="بستن">
+                                                <i class="far fa-times font-size-small"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item">
+                                                    <a href="#embedScript" class="btn btn-outline-primary active"
+                                                       data-toggle="pill">
+                                                        اسکریپت
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#embedIframe" class="btn btn-outline-primary"
+                                                       data-toggle="pill">
+                                                        آی فریم
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#embedAMP" class="btn btn-outline-primary"
+                                                       data-toggle="pill">
+                                                        AMP
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content shadow-none">
+                                                <div class="tab-pane fade show active" id="embedScript">
+                                                    <form>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <a href="#"
+                                                                   class="btn btn-primary d-flex align-items-center embedlink"
+                                                                   data-clipboard-target=".clipboardScript">
+                                                                    <i class="far fa-copy"></i>
+                                                                </a>
+                                                            </div>
+                                                            <textarea class="form-control clipboardScript" readonly
+                                                                      rows="2">
+                                                                <div id="6974888436"><script type="text/JavaScript" src="https://www.aparat.com/embed/pedAc?data[rnddiv]=6974888436&amp;data[responsive]=yes"></script></div>
+                                                            </textarea>
+                                                        </div>
+                                                    </form>
+                                                    <div class="mt-2 d-flex flex-column">
+                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
+                                                        <span class="font-small-2">
+                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
+                                                            embed راهنمای ما رو مطالعه کنید
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade show" id="embedIframe">
+                                                    <form>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <a href="#"
+                                                                   class="btn btn-primary d-flex align-items-center embedlink"
+                                                                   data-clipboard-target=".clipboardIframe">
+                                                                    <i class="far fa-copy"></i>
+                                                                </a>
+                                                            </div>
+                                                            <textarea class="form-control clipboardIframe" readonly
+                                                                      rows="2">
+                                                                <style>.h_iframe-aparat_embed_frame{position:relative;}.h_iframe-aparat_embed_frame .ratio{display:block;width:100%;height:auto;}.h_iframe-aparat_embed_frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;}</style><div class="h_iframe-aparat_embed_frame"><span style="display: block;padding-top: 57%"></span><iframe src="https://www.aparat.com/video/video/embed/videohash/pedAc/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
+                                                            </textarea>
+                                                        </div>
+                                                    </form>
+                                                    <div class="mt-2 d-flex flex-column">
+                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
+                                                        <span class="font-small-2">
+                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
+                                                            embed راهنمای ما رو مطالعه کنید
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade show" id="embedAMP">
+                                                    <form>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <a href="#"
+                                                                   class="btn btn-primary d-flex align-items-center embedlink"
+                                                                   data-clipboard-target=".clipboardAMP">
+                                                                    <i class="far fa-copy"></i>
+                                                                </a>
+                                                            </div>
+                                                            <input type="text" class="form-control dir-ltr clipboardAMP"
+                                                                   readonly
+                                                                   value="<script async custom-element='amp-iframe' src='js/v0/amp-iframe-0.1.js'></script>"/>
+                                                        </div>
+                                                    </form>
+                                                    <div class="mt-2 d-flex flex-column">
+                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
+                                                        <span class="font-small-2">
+                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
+                                                            embed راهنمای ما رو مطالعه کنید
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-trailer" id="trailer">
+                                    <video id="player" poster="{% static 'img/screenshots/peaky%20blinders/2.jpg' %}"
+                                           src="https://uupload.ir/filelink/2zbG3xSrwYtR/79lz_the_100.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="card main-screenshot-card">
+                            <div class="card-header">
+                                <h5 class="title text-dark font-weight-bolder">
+                                    اسکرین شات
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-screenshot" id="screenshots">
+                                    <div class="swiper-container swiper-container2">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{% static 'img/screenshots/the%20100/1.jpg' %}"
+                                                             alt=""/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{% static 'img/screenshots/the%20100/2.jpg' %}"
+                                                             alt=""/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{% static 'img/screenshots/the%20100/3.jpg' %}"
+                                                             alt=""/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="watch-movie">
+                    <div class="card-header">
+                        <h5 class="title text-dark font-weight-bolder">دانلود</h5>
+                        <div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">
+                                دانلود زیرنویس
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-primary">
+                                دانلود صوت دوبله
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="accordion collapse-icon accordion-icon-rotate" id="accordionWrapa2"
+                                     data-toggle-hover="true">
+                                    <div class="card collapse-header">
+                                        <div id="heading5" class="card-header collapsed" data-toggle="collapse"
+                                             data-target="#accordion5" aria-expanded="false" aria-controls="accordion5"
+                                             role="tablist">
+                                            <span class="collapse-title">
+                                                <i class="bx bx-cloud align-middle"></i>
+                                                <span class="align-middle font-size-base">فصل اول</span>
+                                            </span>
+                                        </div>
+                                        <div id="accordion5" role="tabpanel" data-parent="#accordionWrapa2"
+                                             aria-labelledby="heading5" class="collapse" style="">
+                                            <div class="card-content">
+                                                <div class="card-body line-height-2">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 1</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 2</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 3</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 4</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 5</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 6</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card collapse-header">
+                                        <div id="heading6" class="card-header collapsed" data-toggle="collapse"
+                                             role="button" data-target="#accordion6" aria-expanded="false"
+                                             aria-controls="accordion6">
+                                            <span class="collapse-title">
+                                                <i class="bx bx-run align-middle"></i>
+                                                <span class="align-middle font-size-base">فصل دوم</span>
+                                            </span>
+                                        </div>
+                                        <div id="accordion6" role="tabpanel" data-parent="#accordionWrapa2"
+                                             aria-labelledby="heading6" class="collapse" aria-expanded="false" style="">
+                                            <div class="card-content">
+                                                <div class="card-body line-height-2">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 1</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 2</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 3</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 4</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 5</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 6</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت
+                                                                    1080</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">کیفیت 720</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card collapse-header">
+                                        <div id="heading7" class="card-header collapsed" data-toggle="collapse"
+                                             role="button" data-target="#accordion7" aria-expanded="false"
+                                             aria-controls="accordion7">
+                                            <span class="collapse-title">
+                                                <i class="bx bx-bluetooth align-middle"></i>
+                                                <span class="align-middle font-size-base">فصل سوم</span>
+                                            </span>
+                                        </div>
+                                        <div id="accordion7" role="tabpanel" data-parent="#accordionWrapa2"
+                                             aria-labelledby="heading7" class="collapse" aria-expanded="false">
+                                            <div class="card-content">
+                                                <div class="card-body line-height-2">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <span>قسمت 1</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 2</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 3</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 4</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 5</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 6</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card collapse-header">
+                                        <div
+                                                id="heading8"
+                                                class="card-header collapsed"
+                                                data-toggle="collapse"
+                                                role="button"
+                                                data-target="#accordion8"
+                                                aria-expanded="false"
+                                                aria-controls="accordion8"
+                                        >
+                          <span class="collapse-title">
+                            <i class="bx bxs-yin-yang align-middle"></i>
+                            <span class="align-middle font-size-base"
+                            >فصل چهارم</span
+                            >
+                          </span>
+                                        </div>
+                                        <div
+                                                id="accordion8"
+                                                role="tabpanel"
+                                                data-parent="#accordionWrapa2"
+                                                aria-labelledby="heading8"
+                                                class="collapse"
+                                                aria-expanded="false"
+                                        >
+                                            <div class="card-content">
+                                                <div class="card-body line-height-2">
+                                                    <ul class="list-group">
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 1</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 2</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 3</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 4</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 5</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                        <li
+                                                                class="list-group-item d-flex justify-content-between"
+                                                        >
+                                                            <span>قسمت 6</span>
+                                                            <div>
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 1080</a
+                                                                >
+                                                                <a href="#" class="btn btn-primary btn-sm"
+                                                                >کیفیت 720</a
+                                                                >
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="cast">
+                    <div class="card-header">
+                        <h5 class="title text-dark font-weight-bolder">بازیگران</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="swiper-container swiper-container3 swip">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                {% for actor in series.actors.all %}
+                                    <div class="swiper-slide card hover">
+                                        <img class="card-img-top" src="{{ actor.thumbnail.url }}"
+                                             alt="{{ actor.name }}"/>
+                                        <div class="card-body">
+                                            <div class="card-content">
+                                                <a href="#" class="card-link">
+                                                    <h5>{{ actor.name }}</h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- If we need pagination -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="comments">
+                    <div class="card-header">
+                        <h5 class="title text-dark font-weight-bolder">دیدگاه</h5>
+                    </div>
+                    <div class="card-body" id="comments_container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card bg-info-lighten card-comment">
+                                    <div
+                                            class="card-header d-flex justify-content-between mb-0"
+                                    >
+                                        <div
+                                                class="d-flex align-items-center justify-content-center"
+                                        >
+                                            <h5 class="text-dark font-weight-bolder">Farhad</h5>
+                                            <span class="card-subtitle text-primary ml-2"
+                                            >مهر 1399 در 12</span
+                                            >
+                                        </div>
+                                        <div class="comment-more">
+                                            <a href="#" class="dropdown" data-toggle="dropdown">
+                                                <i class="far fa-ellipsis-v"></i>
+                                                <div class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#" class="dropdown-item">
+                                                            <i class="far fa-flag"></i>
+                                                            <span class="ml-1">گزارش تخلف</span>
+                                                        </a>
+                                                    </li>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pb-0 pt-0">
+                                        <p>فیلم خیلی خوبی بود</p>
+                                    </div>
+                                    <div
+                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
+                                    >
+                                        <a
+                                                href="#"
+                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
+                                        >
+                                            <span>0</span>
+                                            <i class="fas fa-thumbs-down"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm like">
+                                            <span>2</span>
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card bg-info-lighten card-comment">
+                                    <div
+                                            class="card-header d-flex justify-content-between mb-0"
+                                    >
+                                        <div
+                                                class="d-flex align-items-center justify-content-center"
+                                        >
+                                            <h5 class="text-dark font-weight-bolder">Melika</h5>
+                                            <span class="card-subtitle text-primary ml-2"
+                                            >مهر 1399 در 12</span
+                                            >
+                                        </div>
+                                        <div class="comment-more">
+                                            <a href="#" class="dropdown" data-toggle="dropdown">
+                                                <i class="far fa-ellipsis-v"></i>
+                                                <div class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#" class="dropdown-item">
+                                                            <i class="far fa-flag"></i>
+                                                            <span class="ml-1">گزارش تخلف</span>
+                                                        </a>
+                                                    </li>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pb-0 pt-0">
+                                        <p>اره منم قبول دارم</p>
+                                    </div>
+                                    <div
+                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
+                                    >
+                                        <a
+                                                href="#"
+                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
+                                        >
+                                            <span>0</span>
+                                            <i class="fas fa-thumbs-down"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm like">
+                                            <span>2</span>
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card bg-info-lighten card-comment">
+                                    <div
+                                            class="card-header d-flex justify-content-between mb-0"
+                                    >
+                                        <div
+                                                class="d-flex align-items-center justify-content-center"
+                                        >
+                                            <h5 class="text-dark font-weight-bolder">Setareh</h5>
+                                            <span class="card-subtitle text-primary ml-2"
+                                            >مهر 1399 در 12</span
+                                            >
+                                        </div>
+                                        <div class="comment-more">
+                                            <a href="#" class="dropdown" data-toggle="dropdown">
+                                                <i class="far fa-ellipsis-v"></i>
+                                                <div class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#" class="dropdown-item">
+                                                            <i class="far fa-flag"></i>
+                                                            <span class="ml-1">گزارش تخلف</span>
+                                                        </a>
+                                                    </li>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pb-0 pt-0">
+                                        <p>فیلم بدی نبود</p>
+                                    </div>
+                                    <div
+                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
+                                    >
+                                        <a
+                                                href="#"
+                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
+                                        >
+                                            <span>0</span>
+                                            <i class="fas fa-thumbs-down"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm like">
+                                            <span>2</span>
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="comment-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative has-icon-left">
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="نام شما"
+                                        />
+                                        <div class="form-control-position">
+                                            <i class="far fa-user"></i>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <i class="bx bx-radio-circle"></i>
+                                            نام خود را وارد کنید .
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative has-icon-left">
+                                        <input
+                                                type="email"
+                                                class="form-control"
+                                                placeholder="ایمیل شما"
+                                        />
+                                        <div class="form-control-position">
+                                            <i class="far fa-envelope"></i>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            <i class="bx bx-radio-circle"></i>
+                                            ایمیل خود را وارد کنید .
+                                        </div>
+                                    </div>
+                                </div>
+                                <fieldset class="col-md-12">
+                                    <div class="form-group">
+                        <textarea
+                                class="form-control"
+                                rows="5"
+                                placeholder="دیدگاه خود را بنویسید"
+                        ></textarea>
+                                        <div class="invalid-feedback">
+                                            <i class="bx bx-radio-circle"></i>
+                                            دیدگاه خود را وارد کنید .
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="col-md-6">
+                                    <input
+                                            class="btn btn-outline-primary"
+                                            type="submit"
+                                            value="فرستادن دیدگاه"
+                                    />
+                                    <input
+                                            class="btn btn-danger"
+                                            type="reset"
+                                            value="پاک کردن"
+                                    />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if series.similar_series.all %}
+                    <div class="card" id="recommended-movie">
+                        <div class="card-header">
+                            <h5 class="title text-dark font-weight-bolder">
+                                سریال های مشابه
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="swiper-container swiper-container4" style="overflow-y: visible;">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    {% for serial in series.similar_series.all %}
+                                        <div class="swiper-slide card">
+                                            {% if serial.thumbnail %}
+                                                <img class="card-img-top" src="{{ serial.thumbnail.url }}" alt="{{ serial.title }}"/>
+                                            {% else %}
+                                                <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}" alt="{{ serial.title }}"/>
+                                            {% endif %}
+                                            <div class="card-body pl-0 bg-transparent">
+                                                <a href="{% url 'movie:series_detail' serial.slug %}">
+                                                    <span>{{ serial.title }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                    <div class="swiper-scrollbar"></div>
+                                </div>
+                                <!-- If we need pagination -->
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- END: Post -->
+            </div>
+
+            <!-- START: Sidebar -->
+            {% include 'includes/movie_sidebar.html' %}
+            <!-- END: Sidebar -->
+
+            <!-- START:Theme option -->
+            <div class="shadow p-2 customizer" id="theme-option">
+                <div class="change-setting shadow cursor-pointer">
+                    <a href="#" class="font-medium-4">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                <header class="d-flex align-items-center justify-content-between">
+                    <h4 class="font-weight-normal">تنظیمات قالب</h4>
+                    <a class="text-dark font-medium-4 close" href="#">
+                        <i class="far fa-times"></i>
+                    </a>
+                </header>
+                <hr/>
+                <h5 class="mt-2">طرح قالب</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-light"
+                                        class="layout-name"
+                                        theme="light"
+                                        checked=""
+                                />
+                                <label for="radio-light">روشن</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-dark"
+                                        class="layout-name"
+                                        theme="dark"
+                                />
+                                <label for="radio-dark">تیره</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">سایه کارت</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="card-shadow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="card-shadow"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">اسکرول به بالا</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="scroll-top"
+                                name="scrollTopShow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="scroll-top"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">تمام صفحه</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="fullscreen-option"
+                                name="fullscrenn"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="fullscreen-option"
+                        ></label>
+                    </div>
+                </div>
+                <hr/>
+                <h5 class="mt-2">نوع فوتر</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        footer="hidden"
+                                        id="hidden-footer"
+                                />
+                                <label for="hidden-footer">مخفی</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="true"
+                                        class="footer-option"
+                                        footer="static"
+                                        id="static-footer"
+                                        checked
+                                />
+                                <label for="static-footer">ایستا</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        id="sticky-footer"
+                                        footer="sticky"
+                                />
+                                <label for="sticky-footer">چسبان</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <!-- END:Theme option -->
+        </div>
+    </div>
+    <!-- END: Main -->
+{% endblock %}

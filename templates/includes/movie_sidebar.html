@@ -1,0 +1,120 @@
+{% load static %}
+<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12" id="sidebar">
+    <div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="title">ژانر فیلم ها</h5>
+                        <div class="row">
+                            {% for genre in genres_movies %}
+                                <div class="col-6">
+                                    <a href="{% url 'movie:genre_movies' genre.slug %}">
+                                        <div class="category">
+                                            <p>{{ genre.title }}</p>
+                                            <span>{{ genre.movies_genre.count }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="title">ژانر سریال ها</h5>
+                        <div class="row">
+                            {% for genre in genres_series %}
+                                <div class="col-6">
+                                    <a href="{% url 'movie:genre_series' genre.slug %}">
+                                        <div class="category">
+                                            <p>{{ genre.title }}</p>
+                                            <span>{{ genre.series_genre.count }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="title">بروز شده ها</h5>
+                        <div class="col-12">
+                            <a href="#">
+                                <div class="update">
+                                    <img
+                                            class="update-img"
+                                            src="{% static 'img/series/flash.jpg' %}"
+                                            alt=""
+                                    />
+                                    <div class="update-body">
+                                        <h6>قسمت 1 از فصل 1</h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="update">
+                                    <img
+                                            class="update-img"
+                                            src="{% static 'img/series/arrow.jpg' %}"
+                                            alt=""
+                                    />
+                                    <div class="update-body">
+                                        <h6>قسمت 2 از فصل 3</h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="update">
+                                    <img
+                                            class="update-img"
+                                            src="{% static 'img/series/breaking_bad.jpg' %}"
+                                            alt=""
+                                    />
+                                    <div class="update-body">
+                                        <h6>قسمت 5 از فصل 3</h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="update">
+                                    <img
+                                            class="update-img"
+                                            src="{% static 'img/series/money_heist.jpg' %}"
+                                            alt=""
+                                    />
+                                    <div class="update-body">
+                                        <h6>قسمت 3 از فصل 2</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                <div
+                        class="card shadow-none d-flex align-items-center justify-content-center py-4 bg-primary"
+                >
+                    <img class="" src="{% static 'img/svg/box.svg' %}" alt="" height="100"/>
+                    <h6 class="text-white text-center">
+                        محل تبلیغ شما اینجاست !
+                    </h6>
+                </div>
+                <div
+                        class="card shadow-none align-items-center justify-content-center py-4 bg-primary d-lg-none d-md-flex"
+                >
+                    <img class="" src="{% static 'img/svg/box.svg' %}" alt="" height="100"/>
+                    <h6 class="text-white text-center">
+                        محل تبلیغ شما اینجاست !
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
