@@ -12,10 +12,6 @@ class SeriesImageAdmin(admin.TabularInline):
     model = models.SeriesImage
 
 
-class VideoMovieAdmin(admin.TabularInline):
-    model = models.VideoMovie
-
-
 class VideoSeriesAdmin(admin.TabularInline):
     model = models.VideoSeries
 
@@ -44,7 +40,7 @@ class ActorAdmin(admin.ModelAdmin):
 @admin.register(models.Movie)
 class MovieAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ['short_title', 'country', 'director', 'duration', 'release_date', 'score', 'age_range', 'views', 'get_created_at_jalali', 'status']
-    inlines = [MovieImageAdmin, VideoMovieAdmin]
+    inlines = [MovieImageAdmin]
     search_fields = ['title']
     list_editable = ['status']
 

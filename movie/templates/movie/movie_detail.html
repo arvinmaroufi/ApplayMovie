@@ -138,141 +138,11 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="title text-dark font-weight-bolder">تریلر</h5>
-                                <div>
-                                    <a href="#" class="mr-1 text-dark">
-                                        <i class="far fa-arrow-alt-to-bottom"></i>
-                                    </a>
-                                    <a href="#" class="dropdown text-dark" data-toggle="dropdown">
-                                        <i class="far fa-ellipsis-h"></i>
-                                        <div class="dropdown-menu">
-                                            <li>
-                                                <a href="#embedModal" data-toggle="modal" class="dropdown-item">
-                                                    <i class="far fa-code"></i>
-                                                    <span class="ml-1">دریافت کد</span>
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="far fa-flag"></i>
-                                                    <span class="ml-1">گزارش تخلف</span>
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="modal fade modal-borderless" id="embedModal" tabindex="-1" data-backdrop="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content border-0">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                ویدئو در سایت شما
-                                            </h5>
-                                            <button type="button" class="close rounded-pill" data-dismiss="modal"
-                                                    aria-label="بستن">
-                                                <i class="far fa-times font-size-small"></i>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul class="nav nav-pills">
-                                                <li class="nav-item">
-                                                    <a href="#embedScript" class="btn btn-outline-primary active"
-                                                       data-toggle="pill">
-                                                        اسکریپت
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#embedIframe" class="btn btn-outline-primary"
-                                                       data-toggle="pill">
-                                                        آی فریم
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#embedAMP" class="btn btn-outline-primary"
-                                                       data-toggle="pill">
-                                                        AMP
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content shadow-none">
-                                                <div class="tab-pane fade show active" id="embedScript">
-                                                    <form>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <a href="#"
-                                                                   class="btn btn-primary d-flex align-items-center embedlink"
-                                                                   data-clipboard-target=".clipboardScript">
-                                                                    <i class="far fa-copy"></i>
-                                                                </a>
-                                                            </div>
-                                                            <textarea class="form-control clipboardScript" readonly
-                                                                      rows="2">
-                                                                <div id="6974888436"><script type="text/JavaScript" src="https://www.aparat.com/embed/pedAc?data[rnddiv]=6974888436&amp;data[responsive]=yes"></script></div>
-                                                            </textarea>
-                                                        </div>
-                                                    </form>
-                                                    <div class="mt-2 d-flex flex-column">
-                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
-                                                        <span class="font-small-2">
-                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
-                                                            embed راهنمای ما رو مطالعه کنید
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade show" id="embedIframe">
-                                                    <form>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <a href="#"
-                                                                   class="btn btn-primary d-flex align-items-center embedlink"
-                                                                   data-clipboard-target=".clipboardIframe">
-                                                                    <i class="far fa-copy"></i>
-                                                                </a>
-                                                            </div>
-                                                            <textarea class="form-control clipboardIframe" readonly
-                                                                      rows="2">
-                                                                <style>.h_iframe-aparat_embed_frame{position:relative;}.h_iframe-aparat_embed_frame .ratio{display:block;width:100%;height:auto;}.h_iframe-aparat_embed_frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;}</style><div class="h_iframe-aparat_embed_frame"><span style="display: block;padding-top: 57%"></span><iframe src="https://www.aparat.com/video/video/embed/videohash/pedAc/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
-                                                            </textarea>
-                                                        </div>
-                                                    </form>
-                                                    <div class="mt-2 d-flex flex-column">
-                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
-                                                        <span class="font-small-2">
-                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
-                                                            embed راهنمای ما رو مطالعه کنید
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade show" id="embedAMP">
-                                                    <form>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <a href="#"
-                                                                   class="btn btn-primary d-flex align-items-center embedlink"
-                                                                   data-clipboard-target=".clipboardAMP">
-                                                                    <i class="far fa-copy"></i>
-                                                                </a>
-                                                            </div>
-                                                            <input type="text" class="form-control dir-ltr clipboardAMP"
-                                                                   readonly
-                                                                   value="<script async custom-element='amp-iframe' src='js/v0/amp-iframe-0.1.js'></script>"/>
-                                                        </div>
-                                                    </form>
-                                                    <div class="mt-2 d-flex flex-column">
-                                                        <a href="#" class="font-size-base">راهنما استفاده</a>
-                                                        <span class="font-small-2">
-                                                            برای دسترسی به گزینه‌های بیشتر و شخصی سازی
-                                                            embed راهنمای ما رو مطالعه کنید
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="card-trailer" id="trailer">
-                                    <video id="player" poster="{% static 'img/screenshots/the%20100/4.jpg' %}"
-                                           src="https://uupload.ir/filelink/2zbG3xSrwYtR/79lz_the_100.mp4"></video>
+                                    <video id="player" poster="{% if movies.movie_images.all %}{{ movies.movie_images.first.images.url }}{% else %}{% static 'img/image_not_available_trailer.jpg' %}{% endif %}"
+                                           src="{{ movies.trailer }}" controls></video>
                                 </div>
                             </div>
                         </div>
@@ -288,30 +158,16 @@
                                 <div class="card-screenshot" id="screenshots">
                                     <div class="swiper-container swiper-container2">
                                         <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <img src="{% static 'img/screenshots/the%20100/1.jpg' %}"
-                                                             alt=""/>
+                                            {% for image in movies.movie_images.all %}
+                                                <div class="swiper-slide">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <img src="{{ image.images.url }}"
+                                                                 alt=""/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <img src="{% static 'img/screenshots/the%20100/2.jpg' %}"
-                                                             alt=""/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <img src="{% static 'img/screenshots/the%20100/3.jpg' %}"
-                                                             alt=""/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                         <div class="swiper-pagination"></div>
                                     </div>
@@ -323,45 +179,58 @@
                 <div class="card" id="watch-movie">
                     <div class="card-header">
                         <h5 class="title text-dark font-weight-bolder">دانلود</h5>
+                        {% if movies.subtitle_url %}
+                            <div>
+                                <a href="{{ movies.subtitle_url }}" class="btn btn-sm btn-outline-primary">
+                                    دانلود زیرنویس
+                                </a>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-watch">
-                                            <i class="fas fa-film"></i>
-                                            <a href="#">
-                                                <span>کیفیت 480</span>
-                                            </a>
+                            {% if movies.quality_480p %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-watch">
+                                                <i class="fas fa-film"></i>
+                                                <a href="{{ movies.quality_480p }}">
+                                                    <span>کیفیت 480</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-watch">
-                                            <i class="fas fa-film"></i>
-                                            <a href="#">
-                                                <span>کیفیت 720</span>
-                                            </a>
+                            {% endif %}
+                            {% if movies.quality_720p %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-watch">
+                                                <i class="fas fa-film"></i>
+                                                <a href="{{ movies.quality_720p }}">
+                                                    <span>کیفیت 720</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-watch">
-                                            <i class="fas fa-film"></i>
-                                            <a href="#">
-                                                <span>کیفیت 1080</span>
-                                            </a>
+                            {% endif %}
+                            {% if movies.quality_1080p %}
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-watch">
+                                                <i class="fas fa-film"></i>
+                                                <a href="{{ movies.quality_1080p }}">
+                                                    <span>کیفیت 1080</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

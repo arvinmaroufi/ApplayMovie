@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Movie, Series, Genre
+from .models import Movie, Series, Genre, ChapterSeries
 from django.core.paginator import Paginator
 
 
@@ -57,9 +57,11 @@ def series_detail(request, slug):
     series = get_object_or_404(Series, slug=slug)
     series.views += 1
     series.save()
+    chapters = series.chapterseries_set.all()
 
     context = {
         'series': series,
+        'chapters': chapters,
     }
     return render(request, 'movie/series_detail.html', context)
 

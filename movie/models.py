@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+import os
 
 
 GENDER = (
@@ -76,6 +75,10 @@ class Movie(models.Model):
     age_range = models.CharField(max_length=20, default='بالای 14 سال', verbose_name='رنج سنی')
     views = models.IntegerField(default=0, verbose_name='بازدید ها')
     trailer = models.URLField(max_length=500, verbose_name='لینک تریلر فیلم')
+    subtitle_url = models.URLField(max_length=500, blank=True, null=True, verbose_name='لینک زیرنویس فیلم')
+    quality_480p = models.URLField(verbose_name='لینک کیفیت 480p', blank=True, null=True)
+    quality_720p = models.URLField(verbose_name='لینک کیفیت 720p', blank=True, null=True)
+    quality_1080p = models.URLField(verbose_name='لینک کیفیت 1080p', blank=True, null=True)
     is_recommended = models.BooleanField(default=False, verbose_name='آیا فیلم، پیشنهادی است؟')
     status = models.CharField(choices=STATUS, max_length=10, default='published', verbose_name='وضعیت')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
@@ -92,9 +95,15 @@ class Movie(models.Model):
         return self.title
 
 
+def movie_image_upload_to(instance, filename):
+    movie_slug = instance.movie.slug
+    folder_name = f"movie_images/{movie_slug}/"
+    return os.path.join(folder_name, filename)
+
+
 class MovieImage(models.Model):
     movie = models.ForeignKey(Movie, related_name="movie_images", on_delete=models.CASCADE, verbose_name='فیلم مربوطه')
-    images = models.ImageField(upload_to="movie_images/", null=True, blank=True, verbose_name='تصاویر فیلم')
+    images = models.ImageField(upload_to=movie_image_upload_to, null=True, blank=True, verbose_name='اسکرین شات فیلم')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
 
     class Meta:
@@ -120,6 +129,7 @@ class Series(models.Model):
     age_range = models.CharField(max_length=20, default='بالای 14 سال', verbose_name='رنج سنی')
     views = models.IntegerField(default=0, verbose_name='بازدید ها')
     trailer = models.URLField(max_length=500, verbose_name='لینک تریلر سریال')
+    subtitle_url = models.URLField(max_length=500, blank=True, null=True, verbose_name='لینک زیرنویس سریال')
     status = models.CharField(choices=STATUS, max_length=10, default='published', verbose_name='وضعیت')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='تاریخ به‌روزرسانی')
@@ -135,31 +145,20 @@ class Series(models.Model):
         return self.title
 
 
+def series_image_upload_to(instance, filename):
+    series_slug = instance.series.slug
+    folder_name = f"series_images/{series_slug}/"
+    return os.path.join(folder_name, filename)
+
+
 class SeriesImage(models.Model):
     series = models.ForeignKey(Series, related_name="series_images", on_delete=models.CASCADE, verbose_name='سریال مربوطه')
-    images = models.ImageField(upload_to="series_images/", null=True, blank=True, verbose_name='تصاویر سریال')
+    images = models.ImageField(upload_to=series_image_upload_to, null=True, blank=True, verbose_name='اسکرین شات سریال')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
 
     class Meta:
         verbose_name = "تصویر سریال"
         verbose_name_plural = "تصاویر سریال ها"
-
-
-class VideoMovie(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name='فیلم مربوطه')
-    quality_480p = models.URLField(verbose_name='لینک کیفیت 480p', blank=True, null=True)
-    subtitle_480p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 480p', blank=True, null=True)
-    quality_720p = models.URLField(verbose_name='لینک کیفیت 720p', blank=True, null=True)
-    subtitle_720p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 720p', blank=True, null=True)
-    quality_1080p = models.URLField(verbose_name='لینک کیفیت 1080p', blank=True, null=True)
-    subtitle_1080p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 1080p', blank=True, null=True)
-
-    class Meta:
-        verbose_name = 'ویدیو های فیلم'
-        verbose_name_plural = 'ویدیو های فیلم'
-
-    def __str__(self):
-        return self.movie.title
 
 
 class ChapterSeries(models.Model):
@@ -180,12 +179,9 @@ class ChapterSeries(models.Model):
 class VideoSeries(models.Model):
     chapter = models.ForeignKey(ChapterSeries, on_delete=models.CASCADE, verbose_name='فصل مربوطه')
     quality_480p = models.URLField(verbose_name='لینک کیفیت 480p', blank=True, null=True)
-    subtitle_480p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 480p', blank=True, null=True)
     quality_720p = models.URLField(verbose_name='لینک کیفیت 720p', blank=True, null=True)
-    subtitle_720p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 720p', blank=True, null=True)
     quality_1080p = models.URLField(verbose_name='لینک کیفیت 1080p', blank=True, null=True)
-    subtitle_1080p = models.CharField(max_length=255, verbose_name='زیرنویس کیفیت 1080p', blank=True, null=True)
-    order = models.PositiveIntegerField(unique=True, verbose_name='ترتیب ویدیو')
+    order = models.PositiveIntegerField(verbose_name='ترتیب ویدیو')
 
     class Meta:
         verbose_name = 'ویدیو سریال'
