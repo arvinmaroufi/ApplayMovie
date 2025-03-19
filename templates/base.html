@@ -63,6 +63,9 @@
                             <a href="{% url 'movie:series_list' %}" class="nav-item text-dark">سریال</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
+                            <a href="{% url 'movie:genre_list' %}" class="nav-item text-dark">ژانر ها</a>
+                        </li>
+                        <li class="nav-item mx-2 my-1">
                             <a href="{% url 'movie:actors_list' %}" class="nav-item text-dark">بازیگران</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
@@ -80,18 +83,13 @@
                             {% endif %}
                         </li>
                     </ul>
-                    <form class="ml-auto w-25">
+                    <form class="ml-auto w-25" method="get" action="{% url 'movie:search' %}">
                         <div class="input-group">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="کلمه مورد نظر + اینتر"
-                                    id="searchBox"
-                            />
+                            <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="فیلم یا سریال مدنظر + اینتر" id="searchBox"/>
                             <div class="input-group-append">
-                                <a href="#" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">
                                     <i class="far fa-search"></i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -187,7 +185,7 @@
                     <form class="ml-auto w-100" action="{% url 'core:newsletter' %}" method="post">
                         {% csrf_token %}
                         <div class="input-group">
-                            <input type="text" name="email" id="email" class="form-control" placeholder="آدرس ایمیل را وارد کنید"/>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="آدرس ایمیل را وارد کنید" required/>
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">عضویت</button>
                             </div>

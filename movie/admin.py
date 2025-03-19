@@ -32,7 +32,7 @@ class LanguageAdmin(admin.ModelAdmin):
 
 @admin.register(models.Actor)
 class ActorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'gender', 'date_birth', 'place_birth', 'status']
+    list_display = ['name', 'gender', 'date_birth', 'place_birth', 'views', 'status']
     search_fields = ['name']
     list_editable = ['status']
 

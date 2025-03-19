@@ -87,6 +87,28 @@ def delete_series_comment(request, comment_id):
     return redirect('movie:series_detail', slug=comment.series.slug)
 
 
+def genre_list(request):
+    genres = Genre.objects.all()
+
+    movie_genres_set = set()
+    for movie in Movie.objects.prefetch_related('genre').distinct():
+        for genre in movie.genre.all():
+            movie_genres_set.add(genre)
+
+    series_genres_set = set()
+    for series in Series.objects.prefetch_related('genre').distinct():
+        for genre in series.genre.all():
+            series_genres_set.add(genre)
+
+    context = {
+        'genres': genres,
+        'movie_genres': movie_genres_set,
+        'series_genres': series_genres_set,
+    }
+
+    return render(request, 'movie/genre_list.html', context)
+
+
 def genre_movies(request, slug):
     genre = get_object_or_404(Genre, slug=slug)
     movies = genre.movies_genre.filter(status='published')
@@ -145,3 +167,35 @@ def actor_detail(request, slug):
     }
     return render(request, 'movie/actor_detail.html', context)
 
+
+def search(request):
+    query = request.GET.get('q')
+    movies = Movie.objects.filter(title__icontains=query, status='published') if query else []
+    series = Series.objects.filter(title__icontains=query, status='published') if query else []
+    items = list(movies) + list(series)
+    page_number = request.GET.get('page')
+    paginator = Paginator(items, 4)
+    object_list = paginator.get_page(page_number)
+    pages_to_show = get_pages_to_show(object_list.number, paginator.num_pages)
+    context = {
+        'query': query,
+        'movies': movies,
+        'series': series,
+        'items': object_list,
+        'pages_to_show': pages_to_show,
+    }
+    return render(request, 'movie/search_results.html', context)
+
+
+def actor_search(request):
+    actors_search = request.GET.get('q')
+    actors = Actor.objects.filter(status='published', name__icontains=actors_search)
+    page_number = request.GET.get('page')
+    paginator = Paginator(actors, 12)
+    object_list = paginator.get_page(page_number)
+    pages_to_show = get_pages_to_show(object_list.number, paginator.num_pages)
+    context = {
+        'actors': object_list,
+        'pages_to_show': pages_to_show,
+    }
+    return render(request, 'movie/actors_list.html', context)

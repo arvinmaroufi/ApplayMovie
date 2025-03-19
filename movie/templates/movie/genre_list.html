@@ -1,83 +1,82 @@
 {% extends 'base.html' %}
-{% block title %}بازیگران{% endblock %}
+{% block title %}ژانر ها{% endblock %}
 {% load static %}
 
 {% block content %}
     <!-- START: Main -->
-    <div class="container container-lg">
+    <div class="container container-lg mt-5">
         <div class="row">
             <div class="col-12">
-                <div class="mt-3">
-                    <h3 class="mb-2 title font-weight-bolder text-dark">بازیگران</h3>
-                    <form action="{% url 'movie:actor_search' %}" class="input-group mb-3" method="get">
-                        <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="بازیگر مورد نظر خود را جستجو کنید..."/>
-                        <div class="input-group-append" id="button-addon2">
-                            <button class="btn btn-primary" type="submit">جستجو</button>
-                        </div>
-                    </form>
-                    <div class="row">
-                        {% for actor in actors %}
-                            <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                                <div class="card hover">
-                                    {% if actor.thumbnail %}
-                                        <img class="card-img-top" src="{{ actor.thumbnail.url }}"
-                                             alt="{{ actor.name }}"/>
-                                    {% else %}
-                                        <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}"
-                                             alt="{{ actor.name }}"/>
-                                    {% endif %}
-                                    <div class="card-body">
-                                        <div class="card-content">
-                                            <a href="{% url 'movie:actor_detail' actor.slug %}" class="card-link">
-                                                <h5>{{ actor.name }}</h5>
-                                            </a>
-                                        </div>
-                                    </div>
+                <h3 class="text-dark title font-weight-bolder mb-2">
+                    ژانر های فیلم ها
+                </h3>
+            </div>
+            {% for genre in movie_genres %}
+                <div class="col-lg-3 col-md-2 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            {% if genre.thumbnail %}
+                                <img class="card-img img-fluid height-300" src="{{ genre.thumbnail.url }}"
+                                     alt="{{ genre.title }}"/>
+                            {% else %}
+                                <img class="card-img img-fluid height-300"
+                                     src="{% static 'img/image_not_available.jpg' %}" alt="{{ genre.title }}"/>
+                            {% endif %}
+                            <div class="card-img-overlay overlay-dark d-flex justify-content-between flex-column">
+                                <div class="overlay-content">
+                                    <h4 class="font-weight-bolder text-white font-large-1">
+                                        <a class="text-white"
+                                           href="{% url 'movie:genre_movies' genre.slug %}">{{ genre.title }}</a>
+                                    </h4>
+                                </div>
+                                <div class="card-status">
+                                    <a class="btn btn-outline-white" href="{% url 'movie:genre_movies' genre.slug %}">مشاهده</a>
                                 </div>
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <!-- START: Pagination -->
-                <div class="my-5">
-                    <nav>
-                        {% if actors.has_other_pages %}
-                            <ul class="pagination pagination-borderless justify-content-center mt-2">
-                                {% if actors.has_previous %}
-                                    <li class="page-item previous">
-                                        <a class="page-link" href="?page={{ actors.previous_page_number }}">
-                                            <i class="far fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                {% for page in pages_to_show %}
-                                    {% if page == '...' %}
-                                        <li class="page-item"><a class="page-link">...</a></li>
-                                    {% elif actors.number == page %}
-                                        <li class="page-item active">
-                                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-                                        </li>
-                                    {% else %}
-                                        <li class="page-item"><a class="page-link"
-                                                                 href="?page={{ page }}">{{ page }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if actors.has_next %}
-                                    <li class="page-item next">
-                                        <a class="page-link" href="?page={{ actors.next_page_number }}">
-                                            <i class="far fa-angle-left"></i>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        {% endif %}
-                    </nav>
-                </div>
-                <!-- END: Pagination -->
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container container-lg mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-dark title font-weight-bolder mb-2">
+                    ژانر های سریال ها
+                </h3>
             </div>
+            {% for genre in series_genres %}
+                <div class="col-lg-3 col-md-2 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            {% if genre.thumbnail %}
+                                <img class="card-img img-fluid height-300" src="{{ genre.thumbnail.url }}"
+                                     alt="{{ genre.title }}"/>
+                            {% else %}
+                                <img class="card-img img-fluid height-300"
+                                     src="{% static 'img/image_not_available.jpg' %}" alt="{{ genre.title }}"/>
+                            {% endif %}
+                            <div class="card-img-overlay overlay-dark d-flex justify-content-between flex-column">
+                                <div class="overlay-content">
+                                    <h4 class="font-weight-bolder text-white font-large-1">
+                                        <a class="text-white"
+                                           href="{% url 'movie:genre_series' genre.slug %}">{{ genre.title }}</a>
+                                    </h4>
+                                </div>
+                                <div class="card-status">
+                                    <a class="btn btn-outline-white" href="{% url 'movie:genre_series' genre.slug %}">مشاهده</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <!-- END: Main -->
+
     <!-- START:Theme option -->
     <div class="shadow p-2 customizer" id="theme-option">
         <div class="change-setting shadow cursor-pointer">
@@ -153,7 +152,7 @@
                 <label class="custom-control-label" for="scroll-top"></label>
             </div>
         </div>
-        <hr>
+        <hr/>
         <div class="d-flex align-items-center justify-content-between">
             <h5 class="mt-2">تمام صفحه</h5>
             <div class="custom-control custom-switch">

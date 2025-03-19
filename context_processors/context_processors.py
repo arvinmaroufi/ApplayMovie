@@ -2,7 +2,7 @@ from movie.models import Genre, Movie, Series
 from core.models import SiteSettings
 
 
-def movie_sidebar(request):
+def movie_func(request):
     site_settings = SiteSettings.objects.first()
     genres_movies = Genre.objects.all()
     genres_series = Genre.objects.all()

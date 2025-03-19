@@ -1,54 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}دانلود فیلم و سریال رایگان - Applay{% endblock %}
+{% block title %}نتایج جستجو{% endblock %}
 {% load static %}
 
 {% block content %}
-    <!-- START: Random movie -->
-    {% if movies_recommended %}
-        <div class="container container-lg mt-1" id="random-movie">
-            <div class="header mb-2">
-                <h4 class="text-bold-700 title">فیلم های پیشنهادی</h4>
-            </div>
-            <div>
-                <div class="swiper-container swiper-container1 swip">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
-                        {% for movie in movies_recommended %}
-                            <div class="swiper-slide card hover">
-                                {% if movie.thumbnail %}
-                                    <img class="card-img-top" src="{{ movie.thumbnail.url }}" alt="{{ movie.title }}"/>
-                                {% else %}
-                                    <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}"
-                                         alt="{{ movie.title }}"/>
-                                {% endif %}
-                                <div class="card-body">
-                                    <div class="card-content">
-                                        <a href="{% url 'movie:movie_detail' movie.slug %}" class="card-link">
-                                            <h5>{{ movie.title }}</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    <!-- END: Random movie -->
-
     <!-- START: Main -->
     <div class="container container-lg">
         <div class="row">
-            <div class="col-12 mb-2">
-                <h4 class="title font-weight-bolder">جدیدترین ها</h4>
+            <div class="col-12 my-2">
+                {% if query %}
+                    <h4 class="title font-weight-bolder text-dark">نتایج جستجو برای "{{ query }}"</h4>
+                {% else %}
+                    <h4 class="title font-weight-bolder text-dark">نتایج جستجو برای " "</h4>
+                {% endif %}
             </div>
 
             <!-- START: Post -->
             <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12" id="main-post">
                 <!-- START: Movie and series box -->
-                {% if items %}
+                {% if movies or series %}
                     {% for item in items %}
                         <div class="card">
                             <div class="card-header">
@@ -58,7 +27,9 @@
                                         <i class="fas fa-th-large"></i>
                                     </a>
                                     {% for genre in item.genre.all %}
-                                        <a href="{% if item.chapter_count %}{% url 'movie:genre_series' genre.slug %}{% else %}{% url 'movie:genre_movies' genre.slug %}{% endif %}" class="text-dark">
+                                        <a href="
+                                                {% if item.chapter_count %}{% url 'movie:genre_series' genre.slug %}{% else %}{% url 'movie:genre_movies' genre.slug %}{% endif %}"
+                                           class="text-dark">
                                             {{ genre.title }}{% if not forloop.last %} - {% endif %}
                                         </a>
                                     {% endfor %}
@@ -79,63 +50,93 @@
                                     <div class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column">
                                         <div class="card-detail main">
                                             <a class="d-md-flex d-sm-none d-none">
-                                                <span>امتیاز </span>
+                                                <span>امتیاز : </span>
                                                 <span> {{ item.score }} </span>
                                             </a>
+
                                             <a>
-                                                <span>زبان </span>
+                                                <span>زبان : </span>
                                                 {% for lang in item.language.all %}
                                                     <span>
-                                                        {{ lang.name }}{% if not forloop.last %}، {% endif %}
-                                                    </span>
+                                                    {{ lang.name }}{% if not forloop.last %}، {% endif %}
+                                                </span>
                                                 {% endfor %}
                                             </a>
                                             <a class="d-md-flex d-sm-none d-none">
-                                                <span>کشور </span>
+                                                <span>کشور : </span>
                                                 <span> {{ item.country }} </span>
                                             </a>
                                             <a class="d-md-flex d-sm-none d-none">
-                                                <span>کارگردان </span>
+                                                <span>کارگردان : </span>
                                                 <span> {{ item.director }} </span>
                                             </a>
                                             <a>
-                                                <span>زمان </span>
+                                                <span>زمان : </span>
                                                 <span> {{ item.duration }} دقیقه </span>
                                             </a>
                                         </div>
                                         <div class="card-about">
-                                          <span href="#">
-                                            <h6>خلاصه داستان :</h6>
-                                          </span>
+                                      <span href="#">
+                                        <h6>خلاصه داستان :</h6>
+                                      </span>
                                             <h6>{{ item.description }}</h6>
                                         </div>
                                         <div class="card-footer">
                                             <div>
                                                 <a class="text-dark">
                                                     <i class="fas fa-clock"></i>
-                                                    <h6>
-                                                        انتشار در تاریخ : {{ item.formatted_release_date }}
-                                                    </h6>
+                                                    <h6>انتشار در تاریخ : {{ item.formatted_release_date }}</h6>
                                                 </a>
                                             </div>
-                                            <a href="
-                                                    {% if item.chapter_count %}{% url 'movie:series_detail' item.slug %}{% else %}{% url 'movie:movie_detail' item.slug %}{% endif %}"
-                                               class="btn btn-primary">دانلود</a>
+                                            <a href="{% url 'movie:movie_detail' item.slug %}" class="btn btn-primary">دانلود</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                {% else %}
+                    <p>هیچ فیلم یا سریالی پیدا نشد.</p>
                 {% endif %}
                 <!-- END: Movie and series box -->
 
                 <!-- START: Pagination -->
-                <div>
+                <div class="my-5">
                     <nav>
-                        <ul class="pagination pagination-borderless justify-content-center">
-                            <a href="{% url 'movie:movies_list' %}" class="btn btn-primary">فیلم ها</a>
-                        </ul>
+                        {% if items.has_other_pages %}
+                            <ul class="pagination pagination-borderless justify-content-center mt-2">
+                                {% if items.has_previous %}
+                                    <li class="page-item previous">
+                                        <a class="page-link" href="?page=
+                                                {{ items.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                            <i class="far fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% for page in pages_to_show %}
+                                    {% if page == '...' %}
+                                        <li class="page-item"><a class="page-link">...</a></li>
+                                    {% elif items.number == page %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="?page=
+                                                    {{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page=
+                                                {{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if items.has_next %}
+                                    <li class="page-item next">
+                                        <a class="page-link" href="?page=
+                                                {{ items.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                            <i class="far fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
                     </nav>
                 </div>
                 <!-- END: Pagination -->
@@ -221,7 +222,7 @@
                         <label class="custom-control-label" for="scroll-top"></label>
                     </div>
                 </div>
-                <hr>
+                <hr/>
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="mt-2">تمام صفحه</h5>
                     <div class="custom-control custom-switch">
@@ -231,7 +232,10 @@
                                 id="fullscreen-option"
                                 name="fullscrenn"
                         />
-                        <label class="custom-control-label" for="fullscreen-option"></label>
+                        <label
+                                class="custom-control-label"
+                                for="fullscreen-option"
+                        ></label>
                     </div>
                 </div>
                 <hr/>
@@ -288,36 +292,4 @@
             <!-- END:Theme option -->
         </div>
     </div>
-
-    <!-- START: Top actor -->
-    {% if best_actors %}
-        <div class="container container-lg" id="random-movie">
-            <h4 class="text-bold-700 title">بهترین بازیگران</h4>
-            <div class="mt-2">
-                <div class="swiper-container swiper-container1 swip">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
-                        {% for actor in best_actors %}
-                            <div class="swiper-slide card hover">
-                                {% if actor.thumbnail %}
-                                    <img class="card-img-top" src="{{ actor.thumbnail.url }}" alt="{{ actor.name }}"/>
-                                {% else %}
-                                    <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}" alt="{{ actor.name }}"/>
-                                {% endif %}
-                                <div class="card-body">
-                                    <div class="card-content">
-                                        <a href="{% url 'movie:actor_detail' actor.slug %}" class="card-link">
-                                            <h5>{{ actor.name }}</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    <!-- END: Top actor -->
 {% endblock %}
