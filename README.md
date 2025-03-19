@@ -41,7 +41,7 @@
 1. **کلون کردن مخزن:**
 
 ```bash
-git clone https://github.com/arvinmaroufi/ApplayMovie
+git clone https://github.com/arvinmaroufi/ApplayMovie.git
 cd repo
 ```
 
