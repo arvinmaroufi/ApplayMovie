@@ -1,5 +1,6 @@
 from movie.models import Genre, Movie, Series
 from core.models import SiteSettings
+from blog.models import Article
 
 
 def movie_func(request):
@@ -14,5 +15,14 @@ def movie_func(request):
         'genres_series': genres_series,
         'popular_movies': popular_movies,
         'popular_series': popular_series,
+    }
+
+
+def blog_func(request):
+    updated_articles = Article.objects.filter(status='published').order_by('-updated_at')[:4]
+    popular_articles = Article.objects.filter(status='published').order_by('-views')[:4]
+    return {
+        'updated_articles': updated_articles,
+        'popular_articles': popular_articles,
     }
 

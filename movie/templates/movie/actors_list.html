@@ -10,7 +10,7 @@
                 <div class="mt-3">
                     <h3 class="mb-2 title font-weight-bolder text-dark">بازیگران</h3>
                     <form action="{% url 'movie:actor_search' %}" class="input-group mb-3" method="get">
-                        <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="بازیگر مورد نظر خود را جستجو کنید..."/>
+                        <input type="text" name="actor" class="form-control" value="{{ request.GET.actor }}" placeholder="بازیگر مورد نظر خود را جستجو کنید..."/>
                         <div class="input-group-append" id="button-addon2">
                             <button class="btn btn-primary" type="submit">جستجو</button>
                         </div>

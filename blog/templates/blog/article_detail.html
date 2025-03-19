@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% block title %}{{ articles.title }}{% endblock %}
+{% load static %}
+{% load jalali_tags %}
+
+{% block content %}
+    <!-- START: Main -->
+    <div class="container container-lg mt-4">
+        <div class="row">
+            <!-- START: Post -->
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12" id="main-post">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-dark font-weight-bolder">{{ articles.title }}</h3>
+                        <div class="d-md-flex d-sm-flex d-none">
+                            <a class="mx-1 text-dark">
+                                <i class="fas fa-folders"></i>
+                                {% for category in articles.category.all %}
+                                    <a href="{% url 'blog:article_category' category.slug %}" class="text-dark">
+                                        {{ category.title }}{% if not forloop.last %} ،{% endif %}</a>
+                                {% endfor %}
+                            </a>
+                            <a class="mx-1 text-dark">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ articles.created_at|to_jalali:'%Y/%m/%d' }}</span>
+                            </a>
+                            <a class="mx-1 text-dark">
+                                <i class="fas fa-eye"></i>
+                                <span>{{ articles.views }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if articles.thumbnail %}
+                            <img class="card-img-top rounded" src="{{ articles.thumbnail.url }}"
+                                 alt="{{ articles.title }}"/>
+                        {% else %}
+                            <img class="card-img-top rounded" src="{% static 'img/category_image_not_available.jpg' %}"
+                                 alt="{{ articles.title }}"/>
+                        {% endif %}
+                        <p class="my-2">{{ articles.description|safe }}</p>
+                    </div>
+                </div>
+                <div class="card" id="comments">
+                    <div class="card-header">
+                        <h5 class="title text-dark font-weight-bolder">دیدگاه</h5>
+                    </div>
+                    <div class="card-body" id="comments_container">
+                        <div class="row">
+                            {% for comment in articles.article_comments.all %}
+                                <div class="col-md-12">
+                                    <div class="card bg-info-lighten card-comment">
+                                        <div class="card-header d-flex justify-content-between mb-0">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <h5 class="text-dark font-weight-bolder">{{ comment.author.username }}</h5>
+                                                <span class="card-subtitle text-primary ml-2">{{ comment.created_at|to_jalali:'%Y/%m/%d' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pb-0 pt-0">
+                                            <p>{{ comment.body }}</p>
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji">
+                                            {% if request.user.is_authenticated and comment.author == request.user %}
+                                                <a href="{% url 'blog:delete_article_comment' comment.id %}"
+                                                   class="btn btn-outline-danger btn-sm mr-1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <fieldset class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" rows="5" name="body" id="body"
+                                                      placeholder="دیدگاه خود را بنویسید" required></textarea>
+                                        </div>
+                                    </fieldset>
+                                    <div class="col-md-6">
+                                        <input class="btn btn-outline-primary" type="submit" value="ثبت دیدگاه"/>
+                                        <input class="btn btn-danger" type="reset" value="پاک کردن"/>
+                                    </div>
+                                </div>
+                            </form>
+                        {% else %}
+                            <a class="btn btn-danger" href="{% url 'accounts:login' %}">برای ارسال نظر ابتدا باید وارد
+                                شوید</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if articles.similar_articles.all %}
+                    <div class="card" id="recommended-movie">
+                        <div class="card-header">
+                            <h5 class="title text-dark font-weight-bolder">مقالات مرتبط</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="swiper-container swiper-container4">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    {% for article in articles.similar_articles.all %}
+                                        <div class="swiper-slide card">
+                                            {% if article.thumbnail %}
+                                                <img class="card-img-top" src="{{ article.thumbnail.url }}" alt="{{ article.title }}"/>
+                                            {% else %}
+                                                <img class="card-img-top" src="{% static 'img/category_image_not_available.jpg' %}" alt="{{ article.title }}"/>
+                                            {% endif %}
+                                            <div class="card-body">
+                                                <a href="{% url 'blog:article_detail' article.slug %}">
+                                                    <span>{{ article.title }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                    <div class="swiper-scrollbar"></div>
+                                </div>
+                                <!-- If we need pagination -->
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- END: Post -->
+            </div>
+
+            <!-- START: Sidebar -->
+            {% include 'includes/blog_sidebar.html' %}
+            <!-- END: Sidebar -->
+
+            <!-- START:Theme option -->
+            <div class="shadow p-2 customizer" id="theme-option">
+                <div class="change-setting shadow cursor-pointer">
+                    <a href="#" class="font-medium-4">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                <header class="d-flex align-items-center justify-content-between">
+                    <h4 class="font-weight-normal">تنظیمات قالب</h4>
+                    <a class="text-dark font-medium-4 close" href="#">
+                        <i class="far fa-times"></i>
+                    </a>
+                </header>
+                <hr/>
+                <h5 class="mt-2">طرح قالب</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-light"
+                                        class="layout-name"
+                                        theme="light"
+                                        checked=""
+                                />
+                                <label for="radio-light">روشن</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-dark"
+                                        class="layout-name"
+                                        theme="dark"
+                                />
+                                <label for="radio-dark">تیره</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">سایه کارت</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="card-shadow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="card-shadow"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">اسکرول به بالا</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="scroll-top"
+                                name="scrollTopShow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="scroll-top"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">تمام صفحه</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="fullscreen-option"
+                                name="fullscrenn"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="fullscreen-option"
+                        ></label>
+                    </div>
+                </div>
+                <hr/>
+                <h5 class="mt-2">نوع فوتر</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        footer="hidden"
+                                        id="hidden-footer"
+                                />
+                                <label for="hidden-footer">مخفی</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="true"
+                                        class="footer-option"
+                                        footer="static"
+                                        id="static-footer"
+                                        checked
+                                />
+                                <label for="static-footer">ایستا</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        id="sticky-footer"
+                                        footer="sticky"
+                                />
+                                <label for="sticky-footer">چسبان</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <!-- END:Theme option -->
+        </div>
+    </div>
+    <!-- END: Main -->
+{% endblock %}

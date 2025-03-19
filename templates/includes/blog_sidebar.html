@@ -6,45 +6,6 @@
             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="title">ژانر فیلم ها</h5>
-                        <div class="row">
-                            {% for genre in genres_movies %}
-                                <div class="col-6">
-                                    <a href="{% url 'movie:genre_movies' genre.slug %}">
-                                        <div class="category">
-                                            <p>{{ genre.title }}</p>
-                                            <span>{{ genre.movies_genre.count }}</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="title">ژانر سریال ها</h5>
-                        <div class="row">
-                            {% for genre in genres_series %}
-                                <div class="col-6">
-                                    <a href="{% url 'movie:genre_series' genre.slug %}">
-                                        <div class="category">
-                                            <p>{{ genre.title }}</p>
-                                            <span>{{ genre.series_genre.count }}</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="title">مقالات</h5>
                         <div class="row">
                             <div class="col-12">
                                 <ul class="nav nav-pills justify-content-center">
@@ -68,15 +29,15 @@
                                                 <div class="d-flex border-bottom pb-1 mt-1">
                                                     {% if article.thumbnail %}
                                                         <img class="rounded mr-1" src="{{ article.thumbnail.url }}"
-                                                             height="70" width="70" alt="{{ article.title }}"/>
+                                                             height="70" width="70" alt="{{ article.title|truncatewords:6 }}"/>
                                                     {% else %}
                                                         <img class="rounded mr-1"
                                                              src="{% static 'img/category_image_not_available.jpg' %}"
-                                                             height="70" width="70" alt="{{ article.title }}"/>
+                                                             height="70" width="70" alt="{{ article.title|truncatewords:6 }}"/>
                                                     {% endif %}
                                                     <div>
                                                         <a href="{% url 'blog:article_detail' article.slug %}">
-                                                            <h6>{{ article.title }}</h6>
+                                                            <h6>{{ article.title|truncatewords:6 }}</h6>
                                                         </a>
                                                         <span class="font-size-small">{{ article.created_at|to_jalali:'%Y/%m/%d' }}</span>
                                                     </div>
@@ -89,13 +50,13 @@
                                             <a href="{% url 'blog:article_detail' article.slug %}">
                                                 <div class="d-flex border-bottom pb-1 mt-1">
                                                     {% if article.thumbnail %}
-                                                        <img class="rounded mr-1" src="{{ article.thumbnail.url }}" height="70" width="70" alt="{{ article.title }}"/>
+                                                        <img class="rounded mr-1" src="{{ article.thumbnail.url }}" height="70" width="70" alt="{{ article.title|truncatewords:6 }}"/>
                                                     {% else %}
-                                                        <img class="rounded mr-1" src="{% static 'img/category_image_not_available.jpg' %}" height="70" width="70" alt="{{ article.title }}"/>
+                                                        <img class="rounded mr-1" src="{% static 'img/category_image_not_available.jpg' %}" height="70" width="70" alt="{{ article.title|truncatewords:6 }}"/>
                                                     {% endif %}
                                                     <div>
                                                         <a href="{% url 'blog:article_detail' article.slug %}">
-                                                            <h6>{{ article.title }}</h6>
+                                                            <h6>{{ article.title|truncatewords:6 }}</h6>
                                                         </a>
                                                         <span class="font-size-small">{{ article.created_at|to_jalali:'%Y/%m/%d' }}</span>
                                                     </div>

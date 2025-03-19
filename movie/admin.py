@@ -85,7 +85,7 @@ class ChapterSeriesAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 
 @admin.register(models.MovieComment)
 class MovieCommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['movie', 'author', 'status', 'short_body', 'get_created_at_jalali', 'status']
+    list_display = ['movie', 'author', 'short_body', 'get_created_at_jalali', 'status']
     list_filter = ['status']
     list_editable = ['status']
 
@@ -97,12 +97,12 @@ class MovieCommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         if len(obj.body) > 20:
             return obj.body[:20] + '...'
         return obj.body
-    short_body.short_description = 'نظر'
+    short_body.short_description = 'متن نظر'
 
 
 @admin.register(models.SeriesComment)
 class SeriesCommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['series', 'author', 'status', 'short_body', 'get_created_at_jalali', 'status']
+    list_display = ['series', 'author', 'short_body', 'get_created_at_jalali', 'status']
     list_filter = ['status']
     list_editable = ['status']
 
@@ -114,5 +114,5 @@ class SeriesCommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
         if len(obj.body) > 20:
             return obj.body[:20] + '...'
         return obj.body
-    short_body.short_description = 'نظر'
+    short_body.short_description = 'متن نظر'
 

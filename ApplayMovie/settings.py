@@ -28,10 +28,12 @@ INSTALLED_APPS = [
     # installed apps
     'django_cleanup.apps.CleanupConfig',
     'jalali_date',
+    'ckeditor',
     # my apps
     'core',
     'accounts',
     'movie',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'context_processors.context_processors.movie_func',
+                'context_processors.context_processors.blog_func',
             ],
         },
     },
@@ -123,7 +126,7 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# default settings (optional)
+# JALALI DATE Settings (optional)
 JALALI_DATE_DEFAULTS = {
    # if change it to true then all dates of the list_display will convert to the Jalali.
    'LIST_DISPLAY_AUTO_CONVERT': False,
@@ -150,3 +153,14 @@ JALALI_DATE_DEFAULTS = {
     },
 }
 
+
+# CKEditor Settings
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_CONFIGS = {
+    'default':
+        {
+            'toolbar': 'advanced'
+        }
+}

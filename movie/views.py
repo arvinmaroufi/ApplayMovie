@@ -188,7 +188,7 @@ def search(request):
 
 
 def actor_search(request):
-    actors_search = request.GET.get('q')
+    actors_search = request.GET.get('actor')
     actors = Actor.objects.filter(status='published', name__icontains=actors_search)
     page_number = request.GET.get('page')
     paginator = Paginator(actors, 12)

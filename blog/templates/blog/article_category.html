@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% block title %}مقالات {{ category.title }}{% endblock %}
+{% load static %}
+
+{% block content %}
+    <!-- START: Main -->
+    <div class="container container-lg mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-dark title font-weight-bolder mb-2">مقالات {{ category.title }}</h3>
+            </div>
+
+            <!-- START: Post -->
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 blog">
+                <div class="row">
+                    {% if articles %}
+                        {% for article in articles %}
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card overflow-hidden">
+                                    <div class="card-content">
+                                        <div class="card-body p-0">
+                                            {% if article.thumbnail %}
+                                                <img class="card-img-top" src="{{ article.thumbnail.url }}" alt="{{ article.title }}"/>
+                                            {% else %}
+                                                <img class="card-img-top" src="{% static 'img/category_image_not_available.jpg' %}" alt="{{ article.title }}"/>
+                                            {% endif %}
+                                            <div class="title-marquee">
+                                                <h5>
+                                                    <span>{{ article.title }}</span>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer float-right mt-1">
+                                            <a href="{% url 'blog:article_detail' article.slug %}" class="d-flex align-items-center font-size-base">
+                                                بیشتر بخوانید
+                                                <i class="far fa-arrow-left"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>هیچ مقاله ای وجود ندارد!</p>
+                    {% endif %}
+                    <div class="col-12">
+                        <!-- START: Pagination -->
+                        <div class="my-5">
+                            <nav>
+                                {% if articles.has_other_pages %}
+                                    <ul class="pagination pagination-borderless justify-content-center mt-2">
+                                        {% if articles.has_previous %}
+                                            <li class="page-item previous">
+                                                <a class="page-link" href="?page={{ articles.previous_page_number }}">
+                                                    <i class="far fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% for page in pages_to_show %}
+                                            {% if page == '...' %}
+                                                <li class="page-item"><a class="page-link">...</a></li>
+                                            {% elif articles.number == page %}
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?page={{ page }}">{{ page }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if articles.has_next %}
+                                            <li class="page-item next">
+                                                <a class="page-link" href="?page={{ articles.next_page_number }}">
+                                                    <i class="far fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </nav>
+                        </div>
+                        <!-- END: Pagination -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- START: Sidebar -->
+            {% include 'includes/blog_sidebar.html' %}
+            <!-- END: Sidebar -->
+
+            <!-- START:Theme option -->
+            <div class="shadow p-2 customizer" id="theme-option">
+                <div class="change-setting shadow cursor-pointer">
+                    <a href="#" class="font-medium-4">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                <header class="d-flex align-items-center justify-content-between">
+                    <h4 class="font-weight-normal">تنظیمات قالب</h4>
+                    <a class="text-dark font-medium-4 close" href="#">
+                        <i class="far fa-times"></i>
+                    </a>
+                </header>
+                <hr/>
+                <h5 class="mt-2">طرح قالب</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-light"
+                                        class="layout-name"
+                                        theme="light"
+                                        checked=""
+                                />
+                                <label for="radio-light">روشن</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="layoutOptions"
+                                        value="false"
+                                        id="radio-dark"
+                                        class="layout-name"
+                                        theme="dark"
+                                />
+                                <label for="radio-dark">تیره</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">سایه کارت</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="card-shadow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="card-shadow"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">اسکرول به بالا</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="scroll-top"
+                                name="scrollTopShow"
+                                checked
+                        />
+                        <label class="custom-control-label" for="scroll-top"></label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="mt-2">تمام صفحه</h5>
+                    <div class="custom-control custom-switch">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="fullscreen-option"
+                                name="fullscrenn"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="fullscreen-option"
+                        ></label>
+                    </div>
+                </div>
+                <hr/>
+                <h5 class="mt-2">نوع فوتر</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mr-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        footer="hidden"
+                                        id="hidden-footer"
+                                />
+                                <label for="hidden-footer">مخفی</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="true"
+                                        class="footer-option"
+                                        footer="static"
+                                        id="static-footer"
+                                        checked
+                                />
+                                <label for="static-footer">ایستا</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mx-1">
+                        <fieldset>
+                            <div class="radio">
+                                <input
+                                        type="radio"
+                                        name="footer-option"
+                                        value="false"
+                                        class="footer-option"
+                                        id="sticky-footer"
+                                        footer="sticky"
+                                />
+                                <label for="sticky-footer">چسبان</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <!-- END:Theme option -->
+        </div>
+    </div>
+    <!-- END: Main -->
+{% endblock %}
