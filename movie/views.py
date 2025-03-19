@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Movie, Series, Genre, ChapterSeries
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Movie, Series, Genre, Actor, MovieComment, SeriesComment
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 def get_pages_to_show(current_page, total_pages):
@@ -33,11 +34,21 @@ def movie_detail(request, slug):
     movies = get_object_or_404(Movie, slug=slug)
     movies.views += 1
     movies.save()
+    if request.method == 'POST':
+        body = request.POST.get('body')
+        MovieComment.objects.create(body=body, movie=movies, author=request.user)
 
     context = {
         'movies': movies,
     }
     return render(request, 'movie/movie_detail.html', context)
+
+
+@login_required
+def delete_movie_comment(request, comment_id):
+    comment = get_object_or_404(MovieComment, id=comment_id, author=request.user)
+    comment.delete()
+    return redirect('movie:movie_detail', slug=comment.movie.slug)
 
 
 def series_list(request):
@@ -58,12 +69,22 @@ def series_detail(request, slug):
     series.views += 1
     series.save()
     chapters = series.chapterseries_set.all()
+    if request.method == 'POST':
+        body = request.POST.get('body')
+        SeriesComment.objects.create(body=body, series=series, author=request.user)
 
     context = {
         'series': series,
         'chapters': chapters,
     }
     return render(request, 'movie/series_detail.html', context)
+
+
+@login_required
+def delete_series_comment(request, comment_id):
+    comment = get_object_or_404(SeriesComment, id=comment_id, author=request.user)
+    comment.delete()
+    return redirect('movie:series_detail', slug=comment.series.slug)
 
 
 def genre_movies(request, slug):
@@ -94,3 +115,33 @@ def genre_series(request, slug):
         'pages_to_show': pages_to_show,
     }
     return render(request, 'movie/genre_series.html', context)
+
+
+def actors_list(request):
+    actors = Actor.objects.filter(status='published')
+    page_number = request.GET.get('page')
+    paginator = Paginator(actors, 12)
+    object_list = paginator.get_page(page_number)
+    pages_to_show = get_pages_to_show(object_list.number, paginator.num_pages)
+    context = {
+        'actors': object_list,
+        'pages_to_show': pages_to_show,
+    }
+    return render(request, 'movie/actors_list.html', context)
+
+
+def actor_detail(request, slug):
+    actors = get_object_or_404(Actor, slug=slug)
+    movies = Movie.objects.filter(status='published', actors=actors)
+    series = Series.objects.filter(status='published', actors=actors)
+    items = list(movies) + list(series)
+    actors.views += 1
+    actors.save()
+    context = {
+        'actors': actors,
+        'movies': movies,
+        'series': series,
+        'items': items,
+    }
+    return render(request, 'movie/actor_detail.html', context)
+

@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import NewsletterForm, ContactUsForm
-from .models import SiteSettings
 from movie.models import Movie, Series
 import random
 
 
 def home(request):
-    site_settings = SiteSettings.objects.first()
     movies_recommended = Movie.objects.filter(is_recommended=True)[:10]
 
     movies = Movie.objects.filter(status='published').order_by('-created_at')[:3]
@@ -15,7 +13,6 @@ def home(request):
     random.shuffle(items)
 
     context = {
-        'site_settings': site_settings,
         'movies_recommended': movies_recommended,
         'items': items,
     }

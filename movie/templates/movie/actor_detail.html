@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% block title %}بازیگران{% endblock %}
+{% load static %}
+
+{% block content %}
+    <!-- START: Main -->
+    <div class="container container-lg mt-5">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {% if actors.thumbnail %}
+                            <img class="w-100 h-100 rounded" src="{{ actors.thumbnail.url }}" alt="{{ actors.name }}"/>
+                        {% else %}
+                            <img class="w-100 h-100 rounded" src="{% static 'img/image_not_available.jpg' %}"
+                                 alt="{{ actors.name }}"/>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-12 d-flex justify-content-between flex-column">
+                <div class="card p-1 mb-0">
+                    <div class="card-about">
+                        <h4 class="text-dark font-weight-bolder">{{ actors.name }}</h4>
+                        <h6>{{ actors.description }}</h6>
+                    </div>
+                    <div class="card-footer p-0">
+                        <h5 class="text-dark">حضور داشته در :</h5>
+                        <div class="swiper-container swiper-container3 swip">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                {% for item in items %}
+                                    <div class="swiper-slide card hover mb-0">
+                                        {% if item.thumbnail %}
+                                            <img class="card-img-top" src="{{ item.thumbnail.url }}"
+                                                 alt="{{ item.title }}"/>
+                                        {% else %}
+                                            <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}"
+                                                 alt="{{ item.title }}"/>
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <div class="card-content">
+                                                <a href="
+
+                                                        {% if item.chapter_count %}{% url 'movie:series_detail' item.slug %}{% else %}{% url 'movie:movie_detail' item.slug %}{% endif %}"
+                                                   class="card-link">
+                                                    <h5>{{ item.title }}</h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- If we need pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5 col-sm-12 col-12 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title font-weight-bolder text-dark">جزئیات</h5>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <h6>
+                                <span>به عنوان : </span>
+                                <span class="font-weight-bolder">بازیگر</span>
+                            </h6>
+                            <h6>
+                                <span>فیلم های بازی شده : </span>
+                                <span class="font-weight-bolder">{{ movies.count }}</span>
+                            </h6>
+                            <h6>
+                                <span>سریال های بازی شده : </span>
+                                <span class="font-weight-bolder">{{ series.count }}</span>
+                            </h6>
+                            <h6>
+                                <span>جنسیت : </span>
+                                <span class="font-weight-bolder">{{ actors.get_gender_display }}</span>
+                            </h6>
+                            <h6>
+                                <span>تاریخ تولد : </span>
+                                <span class="font-weight-bolder">{{ actors.date_birth }}</span>
+                            </h6>
+                            <h6>
+                                <span>محل تولد : </span>
+                                <span class="font-weight-bolder">{{ actors.place_birth }}</span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-12 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-dark title font-weight-bolder">تمام فیلم ها</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if movies %}
+                            {% for movie in movies %}
+                                <h6 class="muted">
+                                    <i class="far fa-camera-movie"></i>
+                                    <a class="text-muted ml-1"
+                                       href="{% url 'movie:movie_detail' movie.slug %}">{{ movie.title }}</a>
+                                </h6>
+                            {% endfor %}
+                        {% else %}
+                            <h6 class="muted">
+                                <a class="text-muted ml-1">هیچ فیلمی وجود ندارد!</a>
+                            </h6>
+                        {% endif %}
+                    </div>
+                    <div class="card-header">
+                        <h5 class="text-dark title font-weight-bolder">تمام سریال ها</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if series %}
+                            {% for serial in series %}
+                                <h6 class="muted">
+                                    <i class="far fa-camera-movie"></i>
+                                    <a class="text-muted ml-1"
+                                       href="{% url 'movie:series_detail' serial.slug %}">{{ serial.title }}</a>
+                                </h6>
+                            {% endfor %}
+                        {% else %}
+                            <h6 class="muted">
+                                <a class="text-muted ml-1">هیچ سریالی وجود ندارد!</a>
+                            </h6>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Main -->
+
+    <!-- START:Theme option -->
+    <div class="shadow p-2 customizer" id="theme-option">
+        <div class="change-setting shadow cursor-pointer">
+            <a href="#" class="font-medium-4">
+                <i class="fas fa-cog"></i>
+            </a>
+        </div>
+        <header class="d-flex align-items-center justify-content-between">
+            <h4 class="font-weight-normal">تنظیمات قالب</h4>
+            <a class="text-dark font-medium-4 close" href="#">
+                <i class="far fa-times"></i>
+            </a>
+        </header>
+        <hr/>
+        <h5 class="mt-2">طرح قالب</h5>
+        <div class="d-flex align-items-center">
+            <div class="mr-1">
+                <fieldset>
+                    <div class="radio">
+                        <input
+                                type="radio"
+                                name="layoutOptions"
+                                value="false"
+                                id="radio-light"
+                                class="layout-name"
+                                theme="light"
+                                checked=""
+                        />
+                        <label for="radio-light">روشن</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="mx-1">
+                <fieldset>
+                    <div class="radio">
+                        <input
+                                type="radio"
+                                name="layoutOptions"
+                                value="false"
+                                id="radio-dark"
+                                class="layout-name"
+                                theme="dark"
+                        />
+                        <label for="radio-dark">تیره</label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <hr/>
+        <div class="d-flex align-items-center justify-content-between">
+            <h5 class="mt-2">سایه کارت</h5>
+            <div class="custom-control custom-switch">
+                <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="card-shadow"
+                        checked
+                />
+                <label class="custom-control-label" for="card-shadow"></label>
+            </div>
+        </div>
+        <hr/>
+        <div class="d-flex align-items-center justify-content-between">
+            <h5 class="mt-2">اسکرول به بالا</h5>
+            <div class="custom-control custom-switch">
+                <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="scroll-top"
+                        name="scrollTopShow"
+                        checked
+                />
+                <label class="custom-control-label" for="scroll-top"></label>
+            </div>
+        </div>
+        <hr/>
+        <div class="d-flex align-items-center justify-content-between">
+            <h5 class="mt-2">تمام صفحه</h5>
+            <div class="custom-control custom-switch">
+                <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="fullscreen-option"
+                        name="fullscrenn"
+                />
+                <label class="custom-control-label" for="fullscreen-option"></label>
+            </div>
+        </div>
+        <hr/>
+        <h5 class="mt-2">نوع فوتر</h5>
+        <div class="d-flex align-items-center">
+            <div class="mr-1">
+                <fieldset>
+                    <div class="radio">
+                        <input
+                                type="radio"
+                                name="footer-option"
+                                value="false"
+                                class="footer-option"
+                                footer="hidden"
+                                id="hidden-footer"
+                        />
+                        <label for="hidden-footer">مخفی</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="mx-1">
+                <fieldset>
+                    <div class="radio">
+                        <input
+                                type="radio"
+                                name="footer-option"
+                                value="true"
+                                class="footer-option"
+                                footer="static"
+                                id="static-footer"
+                                checked
+                        />
+                        <label for="static-footer">ایستا</label>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="mx-1">
+                <fieldset>
+                    <div class="radio">
+                        <input
+                                type="radio"
+                                name="footer-option"
+                                value="false"
+                                class="footer-option"
+                                id="sticky-footer"
+                                footer="sticky"
+                        />
+                        <label for="sticky-footer">چسبان</label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <!-- END:Theme option -->
+{% endblock %}

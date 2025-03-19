@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ movies.title }}{% endblock %}
 {% load static %}
+{% load jalali_tags %}
 
 {% block content %}
     <!-- START: Main -->
@@ -119,7 +120,7 @@
                                             <i class="far fa-comment-alt-lines"></i>
                                             تعداد نظرات :
                                         </span>
-                                        <span class="text-primary">3</span>
+                                        <span class="text-primary">{{ movies.movie_comments.count }}</span>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-12 mb-1">
                                         <span>
@@ -141,7 +142,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-trailer" id="trailer">
-                                    <video id="player" poster="{% if movies.movie_images.all %}{{ movies.movie_images.first.images.url }}{% else %}{% static 'img/image_not_available_trailer.jpg' %}{% endif %}"
+                                    <video id="player" poster="
+
+                                            {% if movies.movie_images.all %}{{ movies.movie_images.first.images.url }}{% else %}{% static 'img/image_not_available_trailer.jpg' %}{% endif %}"
                                            src="{{ movies.trailer }}" controls></video>
                                 </div>
                             </div>
@@ -245,11 +248,14 @@
                                 <!-- Slides -->
                                 {% for actor in movies.actors.all %}
                                     <div class="swiper-slide card hover">
-                                        <img class="card-img-top" src="{{ actor.thumbnail.url }}"
-                                             alt="{{ actor.name }}"/>
+                                        {% if actor.thumbnail %}
+                                            <img class="card-img-top" src="{{ actor.thumbnail.url }}" alt="{{ actor.name }}"/>
+                                        {% else %}
+                                            <img class="card-img-top" src="{% static 'img/image_not_available.jpg' %}" alt="{{ actor.name }}"/>
+                                        {% endif %}
                                         <div class="card-body">
                                             <div class="card-content">
-                                                <a href="#" class="card-link">
+                                                <a href="{% url 'movie:actor_detail' actor.slug %}" class="card-link">
                                                     <h5>{{ actor.name }}</h5>
                                                 </a>
                                             </div>
@@ -267,209 +273,47 @@
                     </div>
                     <div class="card-body" id="comments_container">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="card bg-info-lighten card-comment">
-                                    <div
-                                            class="card-header d-flex justify-content-between mb-0"
-                                    >
-                                        <div
-                                                class="d-flex align-items-center justify-content-center"
-                                        >
-                                            <h5 class="text-dark font-weight-bolder">Farhad</h5>
-                                            <span class="card-subtitle text-primary ml-2"
-                                            >مهر 1399 در 12</span
-                                            >
+                            {% for comment in movies.movie_comments.all %}
+                                <div class="col-md-12">
+                                    <div class="card bg-info-lighten card-comment">
+                                        <div class="card-header d-flex justify-content-between mb-0">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <h5 class="text-dark font-weight-bolder">{{ comment.author.username }}</h5>
+                                                <span class="card-subtitle text-primary ml-2">{{ comment.created_at|to_jalali:'%Y/%m/%d' }}</span>
+                                            </div>
                                         </div>
-                                        <div class="comment-more">
-                                            <a href="#" class="dropdown" data-toggle="dropdown">
-                                                <i class="far fa-ellipsis-v"></i>
-                                                <div class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#" class="dropdown-item">
-                                                            <i class="far fa-flag"></i>
-                                                            <span class="ml-1">گزارش تخلف</span>
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                            </a>
+                                        <div class="card-body pb-0 pt-0">
+                                            <p>{{ comment.body }}</p>
                                         </div>
-                                    </div>
-                                    <div class="card-body pb-0 pt-0">
-                                        <p>فیلم خیلی خوبی بود</p>
-                                    </div>
-                                    <div
-                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
-                                    >
-                                        <a
-                                                href="#"
-                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
-                                        >
-                                            <span>0</span>
-                                            <i class="fas fa-thumbs-down"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-outline-primary btn-sm like">
-                                            <span>2</span>
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </a>
+                                        <div class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji">
+                                            {% if request.user.is_authenticated and comment.author == request.user %}
+                                                <a href="{% url 'movie:delete_movie_comment' comment.id %}" class="btn btn-outline-danger btn-sm mr-1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card bg-info-lighten card-comment">
-                                    <div
-                                            class="card-header d-flex justify-content-between mb-0"
-                                    >
-                                        <div
-                                                class="d-flex align-items-center justify-content-center"
-                                        >
-                                            <h5 class="text-dark font-weight-bolder">Melika</h5>
-                                            <span class="card-subtitle text-primary ml-2"
-                                            >مهر 1399 در 12</span
-                                            >
-                                        </div>
-                                        <div class="comment-more">
-                                            <a href="#" class="dropdown" data-toggle="dropdown">
-                                                <i class="far fa-ellipsis-v"></i>
-                                                <div class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#" class="dropdown-item">
-                                                            <i class="far fa-flag"></i>
-                                                            <span class="ml-1">گزارش تخلف</span>
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body pb-0 pt-0">
-                                        <p>اره منم قبول دارم</p>
-                                    </div>
-                                    <div
-                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
-                                    >
-                                        <a
-                                                href="#"
-                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
-                                        >
-                                            <span>0</span>
-                                            <i class="fas fa-thumbs-down"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-outline-primary btn-sm like">
-                                            <span>2</span>
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card bg-info-lighten card-comment">
-                                    <div
-                                            class="card-header d-flex justify-content-between mb-0"
-                                    >
-                                        <div
-                                                class="d-flex align-items-center justify-content-center"
-                                        >
-                                            <h5 class="text-dark font-weight-bolder">Setareh</h5>
-                                            <span class="card-subtitle text-primary ml-2"
-                                            >مهر 1399 در 12</span
-                                            >
-                                        </div>
-                                        <div class="comment-more">
-                                            <a href="#" class="dropdown" data-toggle="dropdown">
-                                                <i class="far fa-ellipsis-v"></i>
-                                                <div class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#" class="dropdown-item">
-                                                            <i class="far fa-flag"></i>
-                                                            <span class="ml-1">گزارش تخلف</span>
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body pb-0 pt-0">
-                                        <p>فیلم بدی نبود</p>
-                                    </div>
-                                    <div
-                                            class="card-footer d-flex justify-content-end mb-1 mr-2 add-emoji"
-                                    >
-                                        <a
-                                                href="#"
-                                                class="btn btn-outline-danger btn-sm mr-1 dislike"
-                                        >
-                                            <span>0</span>
-                                            <i class="fas fa-thumbs-down"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-outline-primary btn-sm like">
-                                            <span>2</span>
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <form class="comment-form">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group position-relative has-icon-left">
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="نام شما"
-                                        />
-                                        <div class="form-control-position">
-                                            <i class="far fa-user"></i>
+                        {% if request.user.is_authenticated %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <fieldset class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" rows="5" name="body" id="body" placeholder="دیدگاه خود را بنویسید" required></textarea>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            نام خود را وارد کنید .
-                                        </div>
+                                    </fieldset>
+                                    <div class="col-md-6">
+                                        <input class="btn btn-outline-primary" type="submit" value="ثبت دیدگاه"/>
+                                        <input class="btn btn-danger" type="reset" value="پاک کردن"/>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group position-relative has-icon-left">
-                                        <input
-                                                type="email"
-                                                class="form-control"
-                                                placeholder="ایمیل شما"
-                                        />
-                                        <div class="form-control-position">
-                                            <i class="far fa-envelope"></i>
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            ایمیل خود را وارد کنید .
-                                        </div>
-                                    </div>
-                                </div>
-                                <fieldset class="col-md-12">
-                                    <div class="form-group">
-                        <textarea
-                                class="form-control"
-                                rows="5"
-                                placeholder="دیدگاه خود را بنویسید"
-                        ></textarea>
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            دیدگاه خود را وارد کنید .
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <div class="col-md-6">
-                                    <input
-                                            class="btn btn-outline-primary"
-                                            type="submit"
-                                            value="فرستادن دیدگاه"
-                                    />
-                                    <input
-                                            class="btn btn-danger"
-                                            type="reset"
-                                            value="پاک کردن"
-                                    />
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        {% else %}
+                            <a class="btn btn-danger" href="{% url 'accounts:login' %}">برای ارسال نظر ابتدا باید وارد شوید</a>
+                        {% endif %}
                     </div>
                 </div>
                 {% if movies.similar_movies.all %}
@@ -486,7 +330,8 @@
                                     <!-- Slides -->
                                     {% for movie in movies.similar_movies.all %}
                                         <div class="swiper-slide card">
-                                            <img class="card-img-top rounded" src="{{ movie.thumbnail.url }}" alt="{{ movie.title }}"/>
+                                            <img class="card-img-top rounded" src="{{ movie.thumbnail.url }}"
+                                                 alt="{{ movie.title }}"/>
                                             <div class="card-body pr-0 bg-transparent">
                                                 <a href="{% url 'movie:movie_detail' movie.slug %}">
                                                     <span>{{ movie.title }}</span>

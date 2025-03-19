@@ -63,6 +63,9 @@
                             <a href="{% url 'movie:series_list' %}" class="nav-item text-dark">سریال</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
+                            <a href="{% url 'movie:actors_list' %}" class="nav-item text-dark">بازیگران</a>
+                        </li>
+                        <li class="nav-item mx-2 my-1">
                             <a href="{% url 'core:contact' %}" class="nav-item text-dark">تماس با ما</a>
                         </li>
                         <li class="nav-item mx-2 my-1">
@@ -103,18 +106,11 @@
             class="w-100 bg-transparent border-bottom border-top d-none d-md-block" id="navbar-children">
         <div class="container-fluid container-lg px-0">
             <ul class="nav p-1">
-                <li class="nav-item mx-1 font-small-3">
-                    <a href="#" class="text-dark"> دانلود سریال The Flash </a>
-                </li>
-                <li class="nav-item mx-1 font-small-3">
-                    <a href="#" class="text-dark"> دانلود سریال Deadpool </a>
-                </li>
-                <li class="nav-item mx-1 font-small-3">
-                    <a href="#" class="text-dark"> دانلود سریال اکشن </a>
-                </li>
-                <li class="nav-item mx-1 font-small-3">
-                    <a href="#" class="text-dark"> دانلود سریال Peaky blinders </a>
-                </li>
+                {% for serial in popular_series %}
+                    <li class="nav-item mx-1 font-small-3">
+                        <a href="{% url 'movie:series_detail' serial.slug %}" class="text-dark">{{ serial.title }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -173,21 +169,17 @@
                 <div class="col-lg-2 col-md-6 col-12">
                     <h3 class="font-weight-bolder text-dark">فیلم ها</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-1"><a class="text-light" href="#">فیلم Joker</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">فیلم After we collided</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">فیلم The old guard</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">فیلم Borat 2</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">فیلم Peninsula</a></li>
+                        {% for movie in popular_movies %}
+                            <li class="mb-1"><a class="text-light" href="{% url 'movie:movie_detail' movie.slug %}">{{ movie.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6 col-12">
                     <h3 class="font-weight-bolder text-dark">سریال ها</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-1"><a class="text-light" href="#">سریال Breaking Bad</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">سریال The Flash</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">سریال Money Heist</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">سریال Peaky Blinders</a></li>
-                        <li class="mb-1"><a class="text-light" href="#">سریال Dark</a></li>
+                        {% for serial in popular_series %}
+                            <li class="mb-1"><a class="text-light" href="{% url 'movie:series_detail' serial.slug %}">{{ serial.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 mt-1">
